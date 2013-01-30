@@ -32,13 +32,16 @@ public class JBattleShipServerThread implements Runnable {
         }
         
         try {
-            mOutput.flush();
+            if (mOutput != null) {
+                mOutput.flush();
+            }
         } catch (IOException e) {
             System.out.println("Can't flush");
         }
         
     }
     
+    @Override
     public void run() {
         
         if (mOutput == null || mInput == null) {
@@ -53,7 +56,9 @@ public class JBattleShipServerThread implements Runnable {
                 msg = mInput.readObject().toString();
                 if ("send".equals(msg.toLowerCase())) {
                     if (JBattleShipServer.hasAddress()) {
-                        
+                        this.writeMessage("meet" + JBattleShipServer.takeAddress());
+                    } else {
+                        this.writeMessage("wait");
                     }
                 }
             } catch (ClassNotFoundException | IOException e) {
