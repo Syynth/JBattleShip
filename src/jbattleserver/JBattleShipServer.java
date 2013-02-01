@@ -1,14 +1,15 @@
-package jbattleship;
+/**
+ *
+ * @author Ben Cochrane
+ */
+
+package jbattleserver;
 
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.io.IOException;
 
-/**
- *
- * @author Ben Cochrane
- */
 public class JBattleShipServer {
 
     JBattleShipServer() {
@@ -30,12 +31,8 @@ public class JBattleShipServer {
         if (!mAddresses.isEmpty()) {
             return mAddresses.remove(0);
         } else {
-            return null;
+            return "";
         }
-    }
-    
-    public static synchronized boolean hasAddress() {
-        return mAddresses.size() > 0;
     }
 
     void execute() {

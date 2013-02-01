@@ -1,25 +1,20 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @date Jan 30, 2013
+ * @author Ben Cochrane
  */
 
-package jbattleship;
+package jbattleserver;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-/**
- * @date Jan 30, 2013
- * @author Ben Cochrane
- */
 public class JBattleShipServerThread implements Runnable {
     
     public JBattleShipServerThread(Socket connection) {
         
         mConnection = connection;
-        JBattleShipServer.addAddress(mConnection.getInetAddress().getHostAddress());
         
         try {
             mOutput = new ObjectOutputStream(mConnection.getOutputStream());
@@ -49,22 +44,20 @@ public class JBattleShipServerThread implements Runnable {
             return;
         }
         
-        String msg = "";
+        JBattleShipServerProtocol protocol = new JBattleShipServerProtocol();
         
         do {    // service loop
             try {
-                msg = mInput.readObject().toString();
-                if ("send".equals(msg.toLowerCase())) {
-                    if (JBattleShipServer.hasAddress()) {
-                        this.writeMessage("meet" + JBattleShipServer.takeAddress());
-                    } else {
-                        this.writeMessage("wait");
-                    }
+                String msg = protocol.handleMessage(mInput.readObject().toString());
+                if ("wait accepted".equals(msg)) {
+                    JBattleShipServer.addAddress(mConnection.getInetAddress().getHostAddress());
+                } else {
+                    writeMessage(msg);
                 }
             } catch (ClassNotFoundException | IOException e) {
                 System.out.println("Unable to read object from mInput.");
             }
-        } while (!"quit".equals(msg.toLowerCase()));
+        } while (!protocol.quit());
         
         try {   // close everything down after being quit
             mInput.close();
@@ -77,6 +70,7 @@ public class JBattleShipServerThread implements Runnable {
     }
     
     private boolean writeMessage(String message) {
+        
         try {
             mOutput.writeObject(message);
             mOutput.flush();
@@ -85,6 +79,7 @@ public class JBattleShipServerThread implements Runnable {
             System.out.println("Error writing message: " + message);
             return false;
         }
+        
     }
     
     private Socket mConnection;
