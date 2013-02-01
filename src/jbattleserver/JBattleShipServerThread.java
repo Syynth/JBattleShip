@@ -31,7 +31,7 @@ public class JBattleShipServerThread implements Runnable {
                 mOutput.flush();
             }
         } catch (IOException e) {
-            System.out.println("Can't flush");
+            System.out.println("Unable to flush output.");
         }
         
     }
