@@ -44,6 +44,7 @@ public class JBattleShipServer {
         while (JBattleShipServer.running) {
             try {
                 new JBattleShipServerThread(mServer.accept()).run();
+                System.out.println("Creating server thread on new connection.");
             } catch (IOException e) {
                 System.out.println("Error creating server thread on new connection.");
                 JBattleShipServer.running = false;

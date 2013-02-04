@@ -52,10 +52,10 @@ public class JBattleShipServerThread implements Runnable {
                 if ("wait accepted".equals(msg.toLowerCase())) {
                     JBattleShipServer.addAddress(mConnection.getInetAddress().getHostAddress());
                 } else {
+                    System.out.println(msg);
                     writeMessage(msg);
                 }
             } catch (ClassNotFoundException | IOException e) {
-                System.out.println("Unable to read object from mInput.");
             }
         } while (!protocol.quit());
         
