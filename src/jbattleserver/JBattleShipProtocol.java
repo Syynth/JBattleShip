@@ -13,7 +13,7 @@ public class JBattleShipProtocol {
         SERV_SENT_ADDRESS_RESPONSE,
         QUIT,
         CLI_BEGIN,
-        CLI_WAIT_INSTRUCTION
+        CLI_RESPONSE_INSTRUCTION
     }
     
     public JBattleShipProtocol(int mode) {
@@ -31,6 +31,7 @@ public class JBattleShipProtocol {
             case SERV_WAITING_FOR_CONNECTION:
                 if ("send".equals(msg.toLowerCase())) {
                     String s = JBattleShipServer.takeAddress();
+                    System.out.println(s);
                     if (!"".equals(s)) {
                         mState = ProtocolState.SERV_SENT_ADDRESS_RESPONSE;
                         return "meet " + s;
@@ -39,28 +40,36 @@ public class JBattleShipProtocol {
                         return "wait";
                     }
                 }
+                System.out.println("Oops!");
                 mState = ProtocolState.QUIT;
                 return "invalid request";
             case SERV_SENT_WAIT_RESPONSE:
                 mState = ProtocolState.QUIT;
-                if ("accept wait".equals(msg.toLowerCase())) {
-                    return "wait accepted";
+                if ("accept wait".equals(msg.toLowerCase().substring(0, 11))) {
+                    return "wait accepted" + msg.substring(11);
                 } else {
                     return "wait failed";
                 }
             case SERV_SENT_ADDRESS_RESPONSE:
                 mState = ProtocolState.QUIT;
-                return "";
-            case QUIT:
-                return "";
+                if ("accept meet".equals(msg.toLowerCase())) {
+                    return "meet accepted";
+                } else {
+                    return "meet failed";
+                }            
             case CLI_BEGIN:
-                mState = ProtocolState.CLI_WAIT_INSTRUCTION;
+                mState = ProtocolState.CLI_RESPONSE_INSTRUCTION;
                 return "send";
-            case CLI_WAIT_INSTRUCTION:
+            case CLI_RESPONSE_INSTRUCTION:
+                mState = ProtocolState.QUIT;
                 if ("wait".equals(msg)) {
-                    mState = ProtocolState.QUIT;
                     return "accept wait";
                 }
+                if ("meet".equals(msg.substring(0, 4))) {
+                    return "accept meet";
+                }
+                return "qwerasdf";
+            case QUIT:
                 return "";
         }
         return "";

@@ -20,18 +20,26 @@ public class JBattleShipClient {
             mInput = new ObjectInputStream(mConnection.getInputStream());
             mOutput = new ObjectOutputStream(mConnection.getOutputStream());
         } catch (IOException e) {
-            
+            System.out.println("Unable to create connection to server.");
         }
         
     }
 
     public void execute() {
         
+        if (mInput == null || mOutput == null) {
+            System.out.println("Unable to create input/output streams.");
+            return;
+        }
+        
         JBattleShipProtocol protocol = new JBattleShipProtocol(JBattleShipProtocol.CLIENT);
         writeMessage(protocol.handleMessage("begin"));
         do {    // service loop
             try {
                 String msg = protocol.handleMessage(mInput.readObject().toString());
+                if ("accept wait".equals(msg)) {
+                    msg += " 13001";
+                }
                 writeMessage(msg);
             } catch (ClassNotFoundException | IOException e) {
             }
@@ -55,7 +63,7 @@ public class JBattleShipClient {
     
     public static void main(String args[])
     {
-        
+
         System.out.println("Client started.");
         JBattleShipClient client = new JBattleShipClient();
         client.execute();
