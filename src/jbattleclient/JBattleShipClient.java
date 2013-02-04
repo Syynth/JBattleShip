@@ -38,7 +38,7 @@ public class JBattleShipClient {
             try {
                 String msg = protocol.handleMessage(mInput.readObject().toString());
                 if ("accept wait".equals(msg)) {
-                    msg += " 13001";
+                    msg += ":13001";
                 }
                 writeMessage(msg);
             } catch (ClassNotFoundException | IOException e) {
