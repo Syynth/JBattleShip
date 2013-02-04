@@ -5,6 +5,37 @@
 
 package jbattleclient;
 
-public class JBattleShipClient {
+import java.net.Socket;
+import java.io.IOException;
 
+public class JBattleShipClient {
+    
+    public JBattleShipClient() {
+        
+        try {
+            mConnection = new Socket("localhost", 13000);
+        } catch (IOException e) {
+            
+        }
+        
+    }
+
+    public void execute() {
+        
+        while (JBattleShipClient.running) {
+            
+        }
+        
+    }
+    
+    public static void main(String args[])
+    {
+        
+        JBattleShipClient client = new JBattleShipClient();
+        client.execute();
+        
+    }
+    
+    Socket mConnection;
+    static boolean running = false;
 }

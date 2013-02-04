@@ -24,15 +24,19 @@ public class JBattleShipServer {
     }
     
     public static synchronized void addAddress(String address) {
+        
         mAddresses.add(address);
+        
     }
     
     public static synchronized String takeAddress() {
+        
         if (!mAddresses.isEmpty()) {
             return mAddresses.remove(0);
         } else {
             return "";
         }
+        
     }
 
     void execute() {
@@ -51,12 +55,10 @@ public class JBattleShipServer {
     public static void main(String[] args) {
 
         JBattleShipServer app = new JBattleShipServer();
-
-        while (JBattleShipServer.running) {
-            app.execute();
-        }
+        app.execute();
 
     }
+    
     ServerSocket mServer;
     Socket mConnection;
     static private ArrayList<String> mAddresses;
