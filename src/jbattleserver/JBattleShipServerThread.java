@@ -49,7 +49,7 @@ public class JBattleShipServerThread implements Runnable {
         do {    // service loop
             try {
                 String msg = protocol.handleMessage(mInput.readObject().toString());
-                if ("wait accepted".equals(msg)) {
+                if ("wait accepted".equals(msg.toLowerCase())) {
                     JBattleShipServer.addAddress(mConnection.getInetAddress().getHostAddress());
                 } else {
                     writeMessage(msg);
