@@ -27,7 +27,7 @@ public class JBattleShipClient {
     public void execute() {
         
         while (JBattleShipClient.running) {
-            writeMessage("send");
+            writeMessage("sendasdf");
         }
         
     }
@@ -37,6 +37,7 @@ public class JBattleShipClient {
         try {
             mOutput.writeObject(message);
             mOutput.flush();
+            System.out.println("client> " + message);
             return true;
         } catch (IOException e) {
             System.out.println("Error writing message: " + message);
@@ -48,6 +49,7 @@ public class JBattleShipClient {
     public static void main(String args[])
     {
         
+        System.out.println("Client started.");
         JBattleShipClient client = new JBattleShipClient();
         client.execute();
         
@@ -56,5 +58,5 @@ public class JBattleShipClient {
     Socket mConnection;
     ObjectOutputStream mOutput;
     ObjectInputStream mInput;
-    static boolean running = false;
+    static boolean running = true;
 }

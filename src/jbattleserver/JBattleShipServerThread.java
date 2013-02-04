@@ -14,6 +14,8 @@ public class JBattleShipServerThread implements Runnable {
     
     public JBattleShipServerThread(Socket connection) {
         
+        System.out.println("Server thread started.");
+        
         mConnection = connection;
         
         try {
@@ -44,7 +46,7 @@ public class JBattleShipServerThread implements Runnable {
             return;
         }
         
-        JBattleShipServerProtocol protocol = new JBattleShipServerProtocol();
+        JBattleShipProtocol protocol = new JBattleShipProtocol();
         
         do {    // service loop
             try {
@@ -52,7 +54,7 @@ public class JBattleShipServerThread implements Runnable {
                 if ("wait accepted".equals(msg.toLowerCase())) {
                     JBattleShipServer.addAddress(mConnection.getInetAddress().getHostAddress());
                 } else {
-                    System.out.println(msg);
+                    System.out.println("server> " + msg);
                     writeMessage(msg);
                 }
             } catch (ClassNotFoundException | IOException e) {

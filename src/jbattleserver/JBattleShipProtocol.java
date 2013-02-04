@@ -5,41 +5,49 @@
 
 package jbattleserver;
 
-public class JBattleShipServerProtocol {
+public class JBattleShipProtocol {
 
     enum ProtocolState {
-        WAITING_FOR_CONNECTION,
-        SENT_WAIT_RESPONSE,
-        SENT_ADDRESS_RESPONSE,
-        QUIT
+        SERV_WAITING_FOR_CONNECTION,
+        SERV_SENT_WAIT_RESPONSE,
+        SERV_SENT_ADDRESS_RESPONSE,
+        QUIT,
+        CLI_BEGIN,
+        CLI_WAIT_INSTRUCTION
     }
     
-    public JBattleShipServerProtocol() {
-        mState = ProtocolState.WAITING_FOR_CONNECTION;
+    public JBattleShipProtocol() {
+        mState = ProtocolState.SERV_WAITING_FOR_CONNECTION;
     }
     
     public String handleMessage(String msg) {
+        System.out.println("Handling message: " + msg);
         switch (mState) {
-            case WAITING_FOR_CONNECTION:
+            case SERV_WAITING_FOR_CONNECTION:
                 if ("send".equals(msg.toLowerCase())) {
                     String s = JBattleShipServer.takeAddress();
                     if (!s.isEmpty()) {
-                        mState = ProtocolState.SENT_ADDRESS_RESPONSE;
+                        mState = ProtocolState.SERV_SENT_ADDRESS_RESPONSE;
                         return "meet " + s;
                     } else {
-                        mState = ProtocolState.SENT_WAIT_RESPONSE;
+                        mState = ProtocolState.SERV_SENT_WAIT_RESPONSE;
                         return s;
                     }
                 }
                 mState = ProtocolState.QUIT;
                 return "invalid request";
-            case SENT_WAIT_RESPONSE:
+            case SERV_SENT_WAIT_RESPONSE:
                 mState = ProtocolState.QUIT;
                 return "wait accepted";
-            case SENT_ADDRESS_RESPONSE:
+            case SERV_SENT_ADDRESS_RESPONSE:
                 mState = ProtocolState.QUIT;
                 return "";
             case QUIT:
+                return "";
+            case CLI_BEGIN:
+                mState = ProtocolState.CLI_WAIT_INSTRUCTION;
+                return "send";
+            case CLI_WAIT_INSTRUCTION:
                 return "";
         }
         return "";
@@ -50,5 +58,7 @@ public class JBattleShipServerProtocol {
     }
     
     private ProtocolState mState;
+    public static final int SERVER = 0;
+    public static final int CLIENT = 1;
     
 }
