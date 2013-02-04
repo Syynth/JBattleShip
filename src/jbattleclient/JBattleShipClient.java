@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import jbattleserver.JBattleShipProtocol;
 
 public class JBattleShipClient {
     
@@ -26,9 +27,15 @@ public class JBattleShipClient {
 
     public void execute() {
         
-        while (JBattleShipClient.running) {
-            writeMessage("sendasdf");
-        }
+        JBattleShipProtocol protocol = new JBattleShipProtocol(JBattleShipProtocol.CLIENT);
+        writeMessage(protocol.handleMessage("begin"));
+        do {    // service loop
+            try {
+                String msg = protocol.handleMessage(mInput.readObject().toString());
+                writeMessage(msg);
+            } catch (ClassNotFoundException | IOException e) {
+            }
+        } while (!protocol.quit());
         
     }
     

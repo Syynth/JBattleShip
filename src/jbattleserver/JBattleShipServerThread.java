@@ -46,7 +46,7 @@ public class JBattleShipServerThread implements Runnable {
             return;
         }
         
-        JBattleShipProtocol protocol = new JBattleShipProtocol();
+        JBattleShipProtocol protocol = new JBattleShipProtocol(JBattleShipProtocol.SERVER);
         
         do {    // service loop
             try {
@@ -64,6 +64,7 @@ public class JBattleShipServerThread implements Runnable {
         try {   // close everything down after being quit
             mInput.close();
             mOutput.close();
+            System.out.println("Closing server thread.");
         } catch (IOException e) {
             System.out.print("Error closing input/output streams with connection: ");
             System.out.println(mConnection.getInetAddress().getHostAddress());
