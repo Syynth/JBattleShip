@@ -1,19 +1,24 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package jbattle.client;
-
 /**
  *
  * @author syynth
  */
+
+package jbattle.client;
+
 public class JBattleGame {
-    
-    public JBattleGame(int mode) {
+
+    public JBattleGame(int mode, int port) {
+        
         mMode = mode;
+        
+        
+    }
+
+    public void execute() {
+        
+        
+        
     }
     
     private int mMode;
-    
 }

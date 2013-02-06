@@ -48,7 +48,10 @@ public class JBattleClient {
             } catch (ClassNotFoundException | IOException e) {}
         } while (!protocol.quit());
         
-        
+        /*
+        JBattleTalker jtalk = mode == SERVER ? ServerTalker(port) : ClientTalker(port);
+        JBattleGame game = new JBattleGame(jtalk);
+        game.execute();*/
         
     }
     
