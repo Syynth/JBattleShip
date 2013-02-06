@@ -69,7 +69,7 @@ public class Net {
         
         while (!"".equals(atk)) {
             try {
-                String rmsg, s[]; // remote message, local message
+                String rmsg, s[]; // remote message, pieces of rmsg
                 rmsg = mInput.readObject().toString();
                 s = rmsg.split(",");
                 if ("miss".equals(s[0]) || "hitt".equals(s[0])) {
