@@ -10,9 +10,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.io.IOException;
 
-public class JBattleShipServer {
+public class JBattleServer {
 
-    JBattleShipServer() {
+    JBattleServer() {
 
         try {
             mServer = new ServerSocket(13000, 10);
@@ -42,12 +42,12 @@ public class JBattleShipServer {
 
     void execute() {
 
-        while (JBattleShipServer.running) {
+        while (JBattleServer.running) {
             try {
-                new JBattleShipServerThread(mServer.accept()).run();
+                new JBattleServerThread(mServer.accept()).run();
             } catch (IOException e) {
                 System.out.println("Error creating server thread on new connection.");
-                JBattleShipServer.running = false;
+                JBattleServer.running = false;
             }
         }
 
@@ -55,7 +55,7 @@ public class JBattleShipServer {
 
     public static void main(String[] args) {
 
-        JBattleShipServer app = new JBattleShipServer();
+        JBattleServer app = new JBattleServer();
         app.execute();
 
     }

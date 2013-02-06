@@ -9,7 +9,7 @@ import java.net.Socket;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import jbattleserver.JBattleShipProtocol;
+import jbattleserver.JBattleServerProtocol;
 
 public class JBattleShipClient {
     
@@ -32,7 +32,7 @@ public class JBattleShipClient {
             return;
         }
         
-        JBattleShipProtocol protocol = new JBattleShipProtocol(JBattleShipProtocol.CLIENT);
+        JBattleServerProtocol protocol = new JBattleServerProtocol(JBattleServerProtocol.CLIENT);
         writeMessage(protocol.handleMessage("begin"));
         do {    // service loop
             try {

@@ -5,7 +5,7 @@
 
 package jbattleserver;
 
-public class JBattleShipProtocol {
+public class JBattleServerProtocol {
 
     enum ProtocolState {
         SERV_WAITING_FOR_CONNECTION,
@@ -16,7 +16,7 @@ public class JBattleShipProtocol {
         CLI_RESPONSE_INSTRUCTION
     }
     
-    public JBattleShipProtocol(int mode) {
+    public JBattleServerProtocol(int mode) {
         this.mode = mode;
         if (mode == SERVER) {
             mState = ProtocolState.SERV_WAITING_FOR_CONNECTION;
@@ -30,7 +30,7 @@ public class JBattleShipProtocol {
         switch (mState) {
             case SERV_WAITING_FOR_CONNECTION:
                 if ("send".equals(msg.toLowerCase())) {
-                    String s = JBattleShipServer.takeAddress();
+                    String s = JBattleServer.takeAddress();
                     System.out.println(s);
                     if (!"".equals(s)) {
                         mState = ProtocolState.SERV_SENT_ADDRESS_RESPONSE;
