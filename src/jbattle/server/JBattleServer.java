@@ -3,7 +3,7 @@
  * @author Ben Cochrane
  */
 
-package jbattleserver;
+package jbattle.server;
 
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -60,8 +60,8 @@ public class JBattleServer {
 
     }
     
-    ServerSocket mServer;
-    Socket mConnection;
-    static private ArrayList<String> mAddresses;
-    static boolean running = true;
+    private ServerSocket mServer;
+    private Socket mConnection;
+    private static ArrayList<String> mAddresses;
+    private static boolean running = true;
 }

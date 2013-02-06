@@ -3,13 +3,13 @@
  * @author Ben Cochrane
  */
 
-package jbattleclient;
+package jbattle.client;
 
 import java.net.Socket;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import jbattleserver.JBattleServerProtocol;
+import jbattle.server.JBattleServerProtocol;
 
 public class JBattleClient {
     
@@ -34,16 +34,21 @@ public class JBattleClient {
         
         JBattleServerProtocol protocol = new JBattleServerProtocol(JBattleServerProtocol.CLIENT);
         writeMessage(protocol.handleMessage("begin"));
+        int mode = -1;
         do {    // service loop
             try {
                 String msg = protocol.handleMessage(mInput.readObject().toString());
                 if ("accept wait".equals(msg)) {
-                    msg += ":13001";
+                    msg += ":" + mPort;
+                    mode = JBattleClientProtocol.SERVER;
+                } else if ("accept meet".equals(msg)) {
+                    mode = JBattleClientProtocol.CLIENT;
                 }
                 writeMessage(msg);
-            } catch (ClassNotFoundException | IOException e) {
-            }
+            } catch (ClassNotFoundException | IOException e) {}
         } while (!protocol.quit());
+        
+        
         
     }
     
@@ -70,8 +75,8 @@ public class JBattleClient {
         
     }
     
-    Socket mConnection;
-    ObjectOutputStream mOutput;
-    ObjectInputStream mInput;
-    static boolean running = true;
+    private Socket mConnection;
+    private ObjectOutputStream mOutput;
+    private ObjectInputStream mInput;
+    private final int mPort = 13001;
 }

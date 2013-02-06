@@ -1,4 +1,4 @@
-package jbattleclient;
+package jbattle.client;
 
 /**
  *

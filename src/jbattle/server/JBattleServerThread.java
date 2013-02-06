@@ -3,7 +3,7 @@
  * @author Ben Cochrane
  */
 
-package jbattleserver;
+package jbattle.server;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
