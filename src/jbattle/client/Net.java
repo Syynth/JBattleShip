@@ -27,17 +27,37 @@ public class Net {
                 mProtocol = new ClientProtocol(ClientProtocol.SERVER);
             }
         } catch (IOException e) {
-            
+            System.out.println("Unable to initialize socket for client-to-client connection.");
         }
 
     }
 
-    private void writeMessage(String msg) {
+    public void connect() {
+
+        try {
+            if (mMode == ClientProtocol.SERVER) {
+                mSocket = mServer.accept();
+            }
+            
+            mInput = new ObjectInputStream(mSocket.getInputStream());
+            mOutput = new ObjectOutputStream(mSocket.getOutputStream());
+            
+            if (mMode == ClientProtocol.CLIENT) {
+                sendAttack("conn, 0, 0");
+            }
+        } catch (IOException e) {
+            System.out.println("Unable to create input/output streams for client-to-client connection.");
+        }
+
     }
 
-    private String readMessage() {
+    private void sendAttack(String msg) {
+    }
+
+    private String getAttack() {
         return "";
     }
+    
     private int mMode;
     private Socket mSocket;
     private ServerSocket mServer;

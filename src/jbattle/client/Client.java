@@ -39,26 +39,32 @@ public class Client {
         String address = "";
         
         do {    // service loop
+            
             try {
+                
                 String smsg = mInput.readObject().toString();
                 String cmsg = protocol.handleMessage(smsg);
-                if ("accept wait".equals(cmsg)) {
-                    cmsg += ":" + mPort;
-                    mode = ClientProtocol.SERVER;
-                } else if ("accept meet".equals(cmsg)) {
-                    address = smsg.substring(4);
-                    mode = ClientProtocol.CLIENT;
+                
+                switch (cmsg) {
+                    case "accept wait":
+                        cmsg += ":" + mPort;
+                        mode = ClientProtocol.SERVER;
+                        break;
+                    case "accept meet":
+                        address = smsg.substring(4);
+                        mode = ClientProtocol.CLIENT;
+                        break;
                 }
+                
                 writeMessage(cmsg);
             } catch (ClassNotFoundException | IOException e) {}
+            
         } while (!protocol.quit());
         
         
         Net jnet = new Net(mode, address);
-        /*
-        JBattleTalker jtalk = mode == SERVER ? ServerTalker(port) : ClientTalker(port);
-        JBattleGame game = new JBattleGame(jtalk);
-        game.execute();*/
+        Game game = new Game(jnet);
+        game.execute();
         
     }
     
