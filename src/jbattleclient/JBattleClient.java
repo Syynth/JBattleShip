@@ -11,9 +11,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import jbattleserver.JBattleServerProtocol;
 
-public class JBattleShipClient {
+public class JBattleClient {
     
-    public JBattleShipClient() {
+    public JBattleClient() {
         
         try {
             mConnection = new Socket("localhost", 13000);
@@ -65,7 +65,7 @@ public class JBattleShipClient {
     {
 
         System.out.println("Client started.");
-        JBattleShipClient client = new JBattleShipClient();
+        JBattleClient client = new JBattleClient();
         client.execute();
         
     }
