@@ -10,9 +10,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class JBattleServerThread implements Runnable {
+public class ServerThread implements Runnable {
     
-    public JBattleServerThread(Socket connection) {
+    public ServerThread(Socket connection) {
         
         System.out.println("Server thread started.");
         
@@ -46,13 +46,13 @@ public class JBattleServerThread implements Runnable {
             return;
         }
         
-        JBattleServerProtocol protocol = new JBattleServerProtocol(JBattleServerProtocol.SERVER);
+        ServerProtocol protocol = new ServerProtocol(ServerProtocol.SERVER);
         
         do {    // service loop
             try {
                 String msg = protocol.handleMessage(mInput.readObject().toString());
                 if (msg.contains("wait accepted")) {
-                    JBattleServer.addAddress(mConnection.getInetAddress()
+                    Server.addAddress(mConnection.getInetAddress()
                                      .getHostAddress() + msg.substring(13));
                 } else {
                     System.out.println("server> " + msg);

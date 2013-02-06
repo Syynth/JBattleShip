@@ -9,11 +9,11 @@ import java.net.Socket;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import jbattle.server.JBattleServerProtocol;
+import jbattle.server.ServerProtocol;
 
-public class JBattleClient {
+public class Client {
     
-    public JBattleClient() {
+    public Client() {
         
         try {
             mConnection = new Socket("localhost", 13000);
@@ -32,22 +32,29 @@ public class JBattleClient {
             return;
         }
         
-        JBattleServerProtocol protocol = new JBattleServerProtocol(JBattleServerProtocol.CLIENT);
+        ServerProtocol protocol = new ServerProtocol(ServerProtocol.CLIENT);
         writeMessage(protocol.handleMessage("begin"));
+        
         int mode = -1;
+        String address = "";
+        
         do {    // service loop
             try {
-                String msg = protocol.handleMessage(mInput.readObject().toString());
-                if ("accept wait".equals(msg)) {
-                    msg += ":" + mPort;
-                    mode = JBattleClientProtocol.SERVER;
-                } else if ("accept meet".equals(msg)) {
-                    mode = JBattleClientProtocol.CLIENT;
+                String smsg = mInput.readObject().toString();
+                String cmsg = protocol.handleMessage(smsg);
+                if ("accept wait".equals(cmsg)) {
+                    cmsg += ":" + mPort;
+                    mode = ClientProtocol.SERVER;
+                } else if ("accept meet".equals(cmsg)) {
+                    address = smsg.substring(4);
+                    mode = ClientProtocol.CLIENT;
                 }
-                writeMessage(msg);
+                writeMessage(cmsg);
             } catch (ClassNotFoundException | IOException e) {}
         } while (!protocol.quit());
         
+        
+        Net jnet = new Net(mode, address);
         /*
         JBattleTalker jtalk = mode == SERVER ? ServerTalker(port) : ClientTalker(port);
         JBattleGame game = new JBattleGame(jtalk);
@@ -73,7 +80,7 @@ public class JBattleClient {
     {
 
         System.out.println("Client started.");
-        JBattleClient client = new JBattleClient();
+        Client client = new Client();
         client.execute();
         
     }

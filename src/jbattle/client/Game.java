@@ -5,11 +5,11 @@
 
 package jbattle.client;
 
-public class JBattleGame {
+public class Game {
 
-    public JBattleGame(int mode, int port) {
+    public Game(Net jnet) {
         
-        mMode = mode;
+        mNet = jnet;
         
         
     }
@@ -20,5 +20,5 @@ public class JBattleGame {
         
     }
     
-    private int mMode;
+    private Net mNet;
 }

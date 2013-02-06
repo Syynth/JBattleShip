@@ -5,7 +5,7 @@
 
 package jbattle.server;
 
-public class JBattleServerProtocol {
+public class ServerProtocol {
 
     enum ProtocolState {
         SERV_WAITING_FOR_CONNECTION,
@@ -16,7 +16,7 @@ public class JBattleServerProtocol {
         CLI_RESPONSE_INSTRUCTION
     }
     
-    public JBattleServerProtocol(int mode) {
+    public ServerProtocol(int mode) {
         this.mode = mode;
         if (mode == SERVER) {
             mState = ProtocolState.SERV_WAITING_FOR_CONNECTION;
@@ -30,7 +30,7 @@ public class JBattleServerProtocol {
         switch (mState) {
             case SERV_WAITING_FOR_CONNECTION:
                 if ("send".equals(msg.toLowerCase())) {
-                    String s = JBattleServer.takeAddress();
+                    String s = Server.takeAddress();
                     System.out.println(s);
                     if (!"".equals(s)) {
                         mState = ProtocolState.SERV_SENT_ADDRESS_RESPONSE;

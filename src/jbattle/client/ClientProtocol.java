@@ -4,13 +4,13 @@ package jbattle.client;
  *
  * @author Ben Cochrane
  */
-public class JBattleClientProtocol {
+public class ClientProtocol {
     enum ProtocolState {
         S_WAIT_FOR_CONNECTION,
         C_ATTEMPT_CONNECTION,
     }
     
-    public JBattleClientProtocol(int mode) {
+    public ClientProtocol(int mode) {
         mMode = mode;
         if (mode == SERVER) {
             mState = ProtocolState.S_WAIT_FOR_CONNECTION;
