@@ -10,6 +10,8 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Net {
 
@@ -51,11 +53,33 @@ public class Net {
 
     }
 
-    private void sendAttack(String msg) {
+    public void sendAttack(String msg) {
+        
+        try {
+            mOutput.writeObject(msg);
+            mOutput.flush();
+        } catch (IOException e) {
+            System.out.println("Error writing message: " + msg);
+        }
+        
     }
 
-    private String getAttack() {
-        return "";
+    public String getAttack() {
+        String atk = "";
+        
+        while (!"".equals(atk)) {
+            try {
+                String rmsg, s[]; // remote message, local message
+                rmsg = mInput.readObject().toString();
+                s = rmsg.split(",");
+                if ("miss".equals(s[0]) || "hitt".equals(s[0])) {
+                    atk = rmsg;
+                }
+            } catch (IOException | ClassNotFoundException ex) {
+                Logger.getLogger(Net.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return atk;
     }
     
     private int mMode;

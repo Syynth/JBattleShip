@@ -16,12 +16,12 @@ public class Game {
 
     public void execute() {
         
-        /*
+        
         mNet.getAttack();
-        getAttackResult();
-        getAttackPosition();
-        mNet.sendAttack();
-        */
+        //getAttackResult();
+        //getAttackPosition();
+        mNet.sendAttack("miss, 0, 0");
+        
     }
     
     private Net mNet;

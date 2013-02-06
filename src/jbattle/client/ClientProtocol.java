@@ -5,12 +5,15 @@ package jbattle.client;
  * @author Ben Cochrane
  */
 public class ClientProtocol {
+    
     enum ProtocolState {
+        
         S_WAIT_FOR_CONNECTION,
         C_ATTEMPT_CONNECTION,
         S_WAIT_FOR_MOVE,
         C_WAIT_FOR_MOVE,
         GAME_OVER
+        
     }
     
     public ClientProtocol(int mode) {
