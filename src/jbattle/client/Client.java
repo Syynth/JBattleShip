@@ -9,6 +9,9 @@ import java.net.Socket;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import jbattle.client.ClientProtocol;
+import jbattle.client.Game;
+import jbattle.client.Net;
 import jbattle.server.ServerProtocol;
 
 public class Client {
