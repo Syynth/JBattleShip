@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config version="1.0">
+	<propertyGroup name="global">
+		<property name="serverAddress">127.0.0.1</property>
+		<property name="serverPort">13000</property>
+		<property name="clientPort">13001</property>
+	</propertyGroup>
+	<propertyGroup name="game">
+		<property name="boardWidth">256</property>
+		<property name="boardHeight">256</property>
+		<property name="aiControlled">true</property>
+	</propertyGroup>
+</config>
