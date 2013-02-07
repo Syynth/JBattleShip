@@ -5,22 +5,29 @@
 package jbattle;
 
 import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
 
-public class Config {
+/**
+ *
+ * @author Ben
+ */
+public final class Config {
     
-    public Config(URL configLocation) {
+    private Config() {}
+       
+    public static boolean LoadConfig(URL config) {
         try {
             SAXReader reader = new SAXReader();
-            Document doc = reader.read(configLocation);
+            Config.config = reader.read(config);
+            return true;
         } catch (DocumentException ex) {
-            System.out.println("Couldn't read from the config file: " + configLocation);
+            System.out.println("Couldn't read from the config file: " + config);
+            return false;
         }
-        
     }
+    
+    private static Document config;
     
 }
