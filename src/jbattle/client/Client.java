@@ -33,10 +33,11 @@ public class Client {
         }
         
         ServerProtocol protocol = new ServerProtocol(ServerProtocol.CLIENT);
+        protocol.setClientPort(mPort);
         writeMessage(protocol.handleMessage("begin"));
         
         int mode = -1;
-        String address = "";
+        String address = "127.0.0.1:" + mPort;
         
         do {    // service loop
             
@@ -46,8 +47,7 @@ public class Client {
                 String cmsg = protocol.handleMessage(smsg);
                 
                 switch (cmsg) {
-                    case "accept wait":
-                        cmsg += ":" + mPort;
+                    case "accept wait:" + mPort:
                         mode = ClientProtocol.SERVER;
                         break;
                     case "accept meet":
@@ -61,7 +61,11 @@ public class Client {
             
         } while (!protocol.quit());
         
-        
+        if (mode == ClientProtocol.SERVER) {
+            System.out.println("***Server mode");
+        } else {
+            System.out.println("***client mode");
+        }
         Net jnet = new Net(mode, address);
         Game game = new Game(jnet);
         game.execute();

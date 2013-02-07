@@ -38,9 +38,12 @@ public class Net {
 
         try {
             if (mMode == ClientProtocol.SERVER) {
+                System.out.println("Server mode engaged.");
                 mSocket = mServer.accept();
             }
-            
+            if (mSocket == null) {
+                System.out.println("Socket is null!");
+            }
             mInput = new ObjectInputStream(mSocket.getInputStream());
             mOutput = new ObjectOutputStream(mSocket.getOutputStream());
             
@@ -72,7 +75,9 @@ public class Net {
                 String rmsg, s[]; // remote message, pieces of rmsg
                 rmsg = mInput.readObject().toString();
                 s = rmsg.split(",");
-                if ("miss".equals(s[0]) || "hitt".equals(s[0])) {
+                if ('m' == s[0].toLowerCase().charAt(0) ||
+                    'h' == s[0].toLowerCase().charAt(0) ||
+                    'l' == s[0].toLowerCase().charAt(0)) {
                     atk = rmsg;
                 }
             } catch (IOException | ClassNotFoundException ex) {
