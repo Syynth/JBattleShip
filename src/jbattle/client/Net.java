@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
@@ -20,9 +21,9 @@ public class Net {
         mMode = mode;
 
         try {
-            String[] temp = address.split(":");
+            String[] temp = address.trim().split(":");
             if (mMode == ClientProtocol.CLIENT) {
-                mSocket = new Socket(InetAddress.getByName(temp[0]), Integer.parseInt(temp[1]));
+                mSocket = new Socket(temp[0], Integer.parseInt(temp[1]));
                 mProtocol = new ClientProtocol(ClientProtocol.CLIENT);
             } else {
                 mServer = new ServerSocket(Integer.parseInt(temp[1]));
@@ -40,9 +41,11 @@ public class Net {
             if (mMode == ClientProtocol.SERVER) {
                 System.out.println("Server mode engaged.");
                 mSocket = mServer.accept();
+                System.out.println("Accepted incoming connection.");
             }
             if (mSocket == null) {
                 System.out.println("Socket is null!");
+                return;
             }
             mInput = new ObjectInputStream(mSocket.getInputStream());
             mOutput = new ObjectOutputStream(mSocket.getOutputStream());

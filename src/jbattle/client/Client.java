@@ -16,7 +16,7 @@ public class Client {
     public Client() {
         
         try {
-            mConnection = new Socket("localhost", 13000);
+            mConnection = new Socket(mServerAddress, mServerPort);
             mInput = new ObjectInputStream(mConnection.getInputStream());
             mOutput = new ObjectOutputStream(mConnection.getOutputStream());
         } catch (IOException e) {
@@ -51,6 +51,7 @@ public class Client {
                         mode = ClientProtocol.SERVER;
                         break;
                     case "accept meet":
+                        System.out.println("server> " + smsg);
                         address = smsg.substring(4);
                         mode = ClientProtocol.CLIENT;
                         break;
@@ -64,7 +65,7 @@ public class Client {
         if (mode == ClientProtocol.SERVER) {
             System.out.println("***Server mode");
         } else {
-            System.out.println("***client mode");
+            System.out.println("***Client mode");
         }
         Net jnet = new Net(mode, address);
         Game game = new Game(jnet);
@@ -99,4 +100,6 @@ public class Client {
     private ObjectOutputStream mOutput;
     private ObjectInputStream mInput;
     private final int mPort = 13001;
+    private final String mServerAddress = "127.0.0.1";
+    private final int mServerPort = 13000;
 }

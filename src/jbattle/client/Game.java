@@ -17,7 +17,7 @@ public class Game {
     public void execute() {
         
         
-        System.out.println(mNet.getAttack());
+        mNet.getAttack();
         //getAttackResult();
         //getAttackPosition();
         mNet.sendAttack("miss, 0, 0");
