@@ -41,26 +41,32 @@ public class Net {
             if (mMode == ClientProtocol.SERVER) {
                 System.out.println("Server mode engaged.");
                 mSocket = mServer.accept();
-                System.out.println("Accepted incoming connection.");
+            } else {
+                System.out.println("Client mode engaged.");
             }
             if (mSocket == null) {
                 System.out.println("Socket is null!");
                 return;
             }
-            mInput = new ObjectInputStream(mSocket.getInputStream());
-            mOutput = new ObjectOutputStream(mSocket.getOutputStream());
             
-            if (mMode == ClientProtocol.CLIENT) {
-                sendAttack("conn, 0, 0");
-            }
+            mOutput = new ObjectOutputStream(mSocket.getOutputStream());
+            mInput = new ObjectInputStream(mSocket.getInputStream());
+            
+            System.out.println("Input/Output streams initalized.");
         } catch (IOException e) {
             System.out.println("Unable to create input/output streams for client-to-client connection.");
+        }
+        
+        try {
+            mOutput.flush();
+        } catch (IOException e) {
+            System.out.println("Error flushing output.");
         }
 
     }
 
     public void sendAttack(String msg) {
-        
+        System.out.println("Writing message: " + msg);
         try {
             mOutput.writeObject(msg);
             mOutput.flush();
@@ -88,6 +94,14 @@ public class Net {
             }
         }
         return atk;
+    }
+    
+    public boolean isClient() {
+        return mMode == ClientProtocol.CLIENT;
+    }
+    
+    public boolean isServer() {
+        return mMode == ClientProtocol.SERVER;
     }
     
     private int mMode;
