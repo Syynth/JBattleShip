@@ -4,6 +4,8 @@
 		<property name="serverAddress">127.0.0.1</property>
 		<property name="serverPort">13000</property>
 		<property name="clientPort">13001</property>
+		<property name="volume">100</property>
+		<property name="fancyGraphics">true</property>
 	</propertyGroup>
 	<propertyGroup name="game">
 		<property name="boardWidth">256</property>
