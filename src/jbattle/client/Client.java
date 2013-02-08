@@ -9,17 +9,15 @@ import java.net.Socket;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import jbattle.client.ClientProtocol;
-import jbattle.client.Game;
-import jbattle.client.Net;
+import jbattle.Config;
 import jbattle.server.ServerProtocol;
 
 public class Client {
     
     public Client() {
-        
+        Config.LoadConfig("./resources/config.xml");
         try {
-            mConnection = new Socket(mServerAddress, mServerPort);
+            mConnection = new Socket(Config.getProperty("serverAddress"), Integer.parseInt(Config.getProperty("serverPort")));
             mInput = new ObjectInputStream(mConnection.getInputStream());
             mOutput = new ObjectOutputStream(mConnection.getOutputStream());
         } catch (IOException e) {
@@ -36,33 +34,28 @@ public class Client {
         }
         
         ServerProtocol protocol = new ServerProtocol(ServerProtocol.CLIENT);
-        protocol.setClientPort(mPort);
+        protocol.setClientPort(Integer.parseInt(Config.getProperty("clientPort")));
         writeMessage(protocol.handleMessage("begin"));
         
         int mode = -1;
-        String address = "127.0.0.1:" + mPort;
+        String address = "127.0.0.1:" + Config.getProperty("clientPort");
         
         do {    // service loop
-            
             try {
                 
                 String smsg = mInput.readObject().toString();
                 String cmsg = protocol.handleMessage(smsg);
                 
-                switch (cmsg) {
-                    case "accept wait:" + mPort:
-                        mode = ClientProtocol.SERVER;
-                        break;
-                    case "accept meet":
-                        System.out.println("server> " + smsg);
-                        address = smsg.substring(4);
-                        mode = ClientProtocol.CLIENT;
-                        break;
+                if (cmsg.equals("accept wait:" + Config.getProperty("clientPort"))) {
+                    mode = ClientProtocol.SERVER;
+                } else if ("accept meet".equals(cmsg)) {
+                    System.out.println("server> " + smsg);
+                    address = smsg.substring(4);
+                    mode = ClientProtocol.CLIENT;
                 }
                 
                 writeMessage(cmsg);
             } catch (ClassNotFoundException | IOException e) {}
-            
         } while (!protocol.quit());
         
         if (mode == ClientProtocol.SERVER) {
@@ -103,6 +96,4 @@ public class Client {
     private ObjectOutputStream mOutput;
     private ObjectInputStream mInput;
     private final int mPort = 13001;
-    private final String mServerAddress = "127.0.0.1";
-    private final int mServerPort = 13000;
 }
