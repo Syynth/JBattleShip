@@ -1,0 +1,16 @@
+<turn count="0">
+	<moves>
+		<move type="shoot" x="0" y="0" id="0" />
+		<move type="shoot" x="1" y="1" id="1" />
+		<move type="shoot" x="2" y="2" id="2"/>
+		<move type="shoot" x="3" y="3" id="3"/>
+		<move type="radar" x="4" y="4" id="4" direction="west" />
+	</moves>
+	<results>
+		<result type="shoot" id="0" value="miss" />
+		<result type="shoot" id="1" value="miss" />
+		<result type="shoot" id="2" value="hit" />
+		<result type="shoot" id="3" value="miss" />
+		<result type="radar" id="4" value="empty" />
+	</results>
+</turn>
