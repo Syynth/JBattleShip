@@ -11,18 +11,30 @@ public class Game {
         mNet = jnet;
         mNet.connect();
         if (mNet.isClient()) {
-            mNet.sendAttack("miss, 0, 0");
+            mTurn = new Turn();
+            mTurn.addMove(new Shoot(Shoot.Type.MOVE, Action.getGUID(), 0, 0));
+            mTurn.addMove(new Radar(Radar.Type.MOVE, Action.getGUID(), 0, 0, Radar.Direction.EAST));
+            mNet.sendTurn(mTurn);
         } else {
-            mNet.getAttack();
+            mTurn = mNet.getTurn();
         }
     }
 
     public void execute() {
-        System.out.println(mNet.getAttack());
-        //getAttackResult();
-        //getAttackPosition();
-        mNet.sendAttack("miss, 0, 0");
+        
+        int c = 0;
+        
+        while (c <30 ) {
+            
+            if (mNet.isClient() || c > 0)
+                mTurn = mNet.getTurn();
+            mNet.sendTurn(mTurn);
+            
+            c++;
+        }
+        
     }
     
     private Net mNet;
+    private Turn mTurn;
 }

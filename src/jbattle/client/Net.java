@@ -96,6 +96,28 @@ public class Net {
         return atk;
     }
     
+    public void sendTurn(Turn t) {
+        System.out.println("Writing message: " + t);
+        try {
+            mOutput.writeObject(new String(t.toString().getBytes(), "UTF-8"));
+            mOutput.flush();
+        } catch (IOException e) {
+            System.out.println("Error writing message: " + t);
+        }
+    }
+    
+    public Turn getTurn() {
+        Turn t = null;
+        while (true) {
+            try {
+                String rmsg, s[]; // remote message, pieces of rmsg
+                rmsg = mInput.readObject().toString();
+                return new Turn(rmsg);
+            } catch (IOException | ClassNotFoundException ex) {
+            }
+        }
+    }
+    
     public boolean isClient() {
         return mMode == ClientProtocol.CLIENT;
     }

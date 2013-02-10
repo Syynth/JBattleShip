@@ -126,27 +126,27 @@ public class Turn {
             }
             return true;
         } catch (DocumentException ex) {
-            System.out.println("Couldn't read incoming XML!");
+            System.out.println("Couldn't read incoming XML!\n" + ex.getMessage());
             return false;
         }
     }
     
     private String renderTurnXML() {
         String xml = xmlHeader;
-        String in = "\t";
+        String in = "";
         xml += "<turn count=\"" + Turn.turnCount + "\">\n";
         xml += in + "<moves>\n";
         for (int i = 0; i < mMoves.size(); ++i) {
-        xml += in + in + mMoves.get(i).toString();
+        xml += in + in + mMoves.get(i).toString() + "\n";
         }
-        xml += in + "<\\moves>";
-        xml += in + "<results>";
+        xml += in + "</moves>\n";
+        xml += in + "<results>\n";
         for (int i = 0; i < mResults.size(); ++i) {
-        xml += in + in + mResults.get(i).toString();
+        xml += in + in + mResults.get(i).toString() + "\n";
         }
-        xml += in + "<\\results>";
-        xml += "<\\turn>";
-        return "";
+        xml += in + "</results>\n";
+        xml += "</turn>\n";
+        return xml.replace("\n", "");
     }
     
     @Override
@@ -181,7 +181,7 @@ public class Turn {
         }
     }
     
-    private final String xmlHeader = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+    private final String xmlHeader = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
     private String mTurnSource;
     private ArrayList<Move> mMoves;
     private ArrayList<Result> mResults;
