@@ -5,14 +5,9 @@
 
 package jbattle.client;
 
-public class Entity {
+public abstract class Entity {
     
-    public Entity(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-    
-    private int x;
-    private int y;
+    protected int x;
+    protected int y;
     
 }

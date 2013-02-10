@@ -8,8 +8,6 @@ package jbattle.client;
  *
  * @author Ben
  */
-public class Shoot extends Action implements Move, Result {
-    
-   
+public class BattleShip extends Entity {
     
 }
