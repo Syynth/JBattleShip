@@ -22,4 +22,13 @@ public class Shoot extends Action implements Move, Result {
         mResult = hit;
     }
     
+    @Override
+    public String toString() {
+        if (isMove()) {
+            return "<move type=\"shoot\" id=\"" + mID + "\" x=\"" + x + "\" y=\"" + y + "\" />";
+        } else {
+            return "<result type=\"shoot\" id=\"" + mID + "\" value=\"" + mResult + "\" />";
+        }
+    }
+    
 }

@@ -10,6 +10,10 @@ package jbattle.client;
  */
 public abstract class Action extends Entity {
     
+    public static int getGUID() {
+        return ++GUIDcounter;
+    }
+    
     public boolean isMove() {
         return mType == Type.MOVE;
     }
@@ -18,11 +22,10 @@ public abstract class Action extends Entity {
     }
     
     public int getID() {
-        return mGUID;
+        return mID;
     }
     
-    protected static int GUIDcounter;
-    protected int mGUID;
+    private static int GUIDcounter = 0;
     protected int mID;
     protected int mTurn;
     protected Type mType;

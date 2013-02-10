@@ -99,7 +99,8 @@ public class Turn {
                         addMove(new Radar(Radar.Type.MOVE,
                                 parseInt(e.attributeValue("id")),
                                 parseInt(e.attributeValue("x")),
-                                parseInt(e.attributeValue("y"))));
+                                parseInt(e.attributeValue("y")),
+                                parseDir(e.attributeValue("direction"))));
                         break;
                 }
             }
@@ -112,14 +113,14 @@ public class Turn {
                                 parseInt(e.attributeValue("id")),
                                 parseInt(e.attributeValue("x")),
                                 parseInt(e.attributeValue("y")),
-                                e.attributeValue("value").equals("hit")));
+                                parseBool(e.attributeValue("value"))));
                         break;
                     case "radar":
                         addResult(new Radar(Radar.Type.RESULT,
                                 parseInt(e.attributeValue("id")),
                                 parseInt(e.attributeValue("x")),
                                 parseInt(e.attributeValue("y")),
-                                e.attributeValue("value").equals("ship")));
+                                parseBool(e.attributeValue("value"))));
                         break;
                 }
             }
@@ -131,6 +132,20 @@ public class Turn {
     }
     
     private String renderTurnXML() {
+        String xml = xmlHeader;
+        String in = "\t";
+        xml += "<turn count=\"" + Turn.turnCount + "\">\n";
+        xml += in + "<moves>\n";
+        for (int i = 0; i < mMoves.size(); ++i) {
+        xml += in + in + mMoves.get(i).toString();
+        }
+        xml += in + "<\\moves>";
+        xml += in + "<results>";
+        for (int i = 0; i < mResults.size(); ++i) {
+        xml += in + in + mResults.get(i).toString();
+        }
+        xml += in + "<\\results>";
+        xml += "<\\turn>";
         return "";
     }
     
@@ -147,6 +162,26 @@ public class Turn {
         return Integer.parseInt(s);
     }
     
+    private boolean parseBool(String s) {
+        return Boolean.parseBoolean(s);
+    }
+    
+    private Radar.Direction parseDir(String s) {
+        switch (s) {
+            case "north":
+                return Radar.Direction.NORTH;
+            case "east":
+                return Radar.Direction.EAST;
+            case "south":
+                return Radar.Direction.SOUTH;
+            case "west":
+                return Radar.Direction.WEST;
+            default:
+                return Radar.Direction.NORTH;
+        }
+    }
+    
+    private final String xmlHeader = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
     private String mTurnSource;
     private ArrayList<Move> mMoves;
     private ArrayList<Result> mResults;

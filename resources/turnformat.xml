@@ -8,10 +8,10 @@
 		<move type="radar" x="4" y="4" id="4" direction="west" />
 	</moves>
 	<results>
-		<result type="shoot" id="0" value="miss" />
-		<result type="shoot" id="1" value="miss" />
-		<result type="shoot" id="2" value="hit" />
-		<result type="shoot" id="3" value="miss" />
-		<result type="radar" id="4" value="empty" />
+		<result type="shoot" id="0" value="false" />
+		<result type="shoot" id="1" value="false" />
+		<result type="shoot" id="2" value="false" />
+		<result type="shoot" id="3" value="true" />
+		<result type="radar" id="4" value="false" />
 	</results>
 </turn>
