@@ -5,11 +5,19 @@
 
 package jbattle.client;
 
+import jbattle.Config;
+
 public class Game {
 
     public Game(Net jnet) {
         mNet = jnet;
         mNet.connect();
+        Input i = Boolean.parseBoolean(Config.getProperty("game", "aiControlled")) ? new AutomatedInput() : new UserInput();
+        mPlayerBoard = new Board(i, Integer.parseInt(Config.getProperty("game", "boardWidth")),
+                                 Integer.parseInt(Config.getProperty("game", "boardHeight")));
+        mEnemyBoard = new Board(i, Integer.parseInt(Config.getProperty("game", "boardWidth")),
+                                 Integer.parseInt(Config.getProperty("game", "boardHeight")));
+        
         if (mNet.isClient()) {
             mTurn = new Turn();
             mTurn.addMove(new Shoot(Shoot.Type.MOVE, Action.getGUID(), 0, 0));
@@ -37,4 +45,6 @@ public class Game {
     
     private Net mNet;
     private Turn mTurn;
+    private Board mPlayerBoard;
+    private Board mEnemyBoard;
 }
