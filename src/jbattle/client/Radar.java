@@ -9,5 +9,7 @@ package jbattle.client;
  * @author Ben
  */
 public class Radar extends Action implements Move, Result {
+
+    
     
 }

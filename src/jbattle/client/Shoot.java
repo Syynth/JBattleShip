@@ -10,6 +10,12 @@ package jbattle.client;
  */
 public class Shoot extends Action implements Move, Result {
     
-   
+    public Shoot(Type type, int x, int y) {
+        this(type, x, y, false);
+    }
+    
+    public Shoot(Type type, int x, int y, boolean hit) {
+        
+    }
     
 }

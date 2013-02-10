@@ -6,46 +6,96 @@
 
 package jbattle.client;
 
+import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.io.SAXReader;
 
 public class Turn {
     
+    public Turn() {
+        mID = Turn.turnCount;
+        Turn.turnCount++;
+        mMoves = new ArrayList<>();
+        mResults = new ArrayList<>();
+    }
+    
     public Turn(String turnXML) {
-        
+        mTurnSource = turnXML;
+        mMoves = new ArrayList<>();
+        mResults = new ArrayList<>();
+        parseTurnXML(mTurnSource);
     }
     
     public Move[] getMoves() {
-        
+        Move[] m = null;
+        m = mMoves.toArray(m);
+        return m;
     }
     
     public Result[] getResults() {
-        
+        Result[] r = null;
+        r = mResults.toArray(r);
+        return r;
     }
     
     public void addMove(Action a) {
-        
+        if (a.isMove()) {
+            mMoves.add((Move)a);
+        } else {
+            System.out.println("Tried to add Result (" + a + ") to Move list in Turn " + mID);
+        }
     }
     
     public void addResult(Action a) {
-        
+        if (a.isResult()) {
+            mResults.add((Result)a);
+        } else {
+            System.out.println("Tried to add Move (" + a + ") to Result list in Turn " + mID);
+        }
     }
     
-    public Move deleteMove() {
-        
+    public Move deleteMove(int id) {
+        for (int i = 0; i < mMoves.size(); ++i) {
+            if (((Action)mMoves.get(i)).getID() == id) {
+                return mMoves.remove(i);
+            }
+        }
+        System.out.println("Couldn't find Move " + id + " to remove!");
+        return null;
     }
     
-    public Result deleteResult() {
-        
+    public Result deleteResult(int id) {
+        for (int i = 0; i < mResults.size(); ++i) {
+            if (((Action)mResults.get(i)).getID() == id) {
+                return mResults.remove(i);
+            }
+        }
+        System.out.println("Couldn't find Result " + id + " to remove!");
+        return null;
     }
     
     private boolean parseTurnXML(String xml) {
-        
+        try {
+            SAXReader r = new SAXReader();
+            mTurn = r.read(new StringReader(xml));
+            List moves = mTurn.selectNodes("");
+            return true;
+        } catch (DocumentException ex) {
+            System.out.println("Couldn't read incoming XML!");
+            return false;
+        }
     }
     
     private String renderTurnXML() {
-        
+        return "";
     }
     
+    @Override
     public String toString() {
         return renderTurnXML();
     }
@@ -54,10 +104,12 @@ public class Turn {
         return mID;
     }
     
-    private String turn;
+    private String mTurnSource;
     private ArrayList<Move> mMoves;
     private ArrayList<Result> mResults;
+    private static int turnCount;
     private int mID;
+    private Document mTurn;
     
     
 }
