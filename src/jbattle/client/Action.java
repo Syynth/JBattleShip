@@ -23,8 +23,11 @@ public abstract class Action extends Entity {
     
     protected static int GUIDcounter;
     protected int mGUID;
+    protected int mID;
     protected int mTurn;
     protected Type mType;
+    
+    protected boolean mResult;
     
     public enum Type {
         MOVE,

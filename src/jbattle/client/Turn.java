@@ -8,11 +8,11 @@ package jbattle.client;
 
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
+import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 public class Turn {
@@ -83,7 +83,46 @@ public class Turn {
         try {
             SAXReader r = new SAXReader();
             mTurn = r.read(new StringReader(xml));
-            List moves = mTurn.selectNodes("");
+            mID = parseInt(mTurn.getRootElement().attributeValue("count"));
+            Turn.turnCount = mID + 1;
+            List moveNodes = mTurn.selectNodes("/turn/moves/move");
+            for (Iterator i = moveNodes.iterator(); i.hasNext();) {
+                Element e = (Element)i.next();
+                switch (e.attributeValue("type")) {
+                    case "shoot":
+                        addMove(new Shoot(Shoot.Type.MOVE,
+                                parseInt(e.attributeValue("id")),
+                                parseInt(e.attributeValue("x")),
+                                parseInt(e.attributeValue("y"))));
+                        break;
+                    case "radar":
+                        addMove(new Radar(Radar.Type.MOVE,
+                                parseInt(e.attributeValue("id")),
+                                parseInt(e.attributeValue("x")),
+                                parseInt(e.attributeValue("y"))));
+                        break;
+                }
+            }
+            List resultNodes = mTurn.selectNodes("/turn/moves/move");
+            for (Iterator i = resultNodes.iterator(); i.hasNext();) {
+                Element e = (Element)i.next();
+                switch (e.attributeValue("type")) {
+                    case "shoot":
+                        addResult(new Shoot(Shoot.Type.RESULT,
+                                parseInt(e.attributeValue("id")),
+                                parseInt(e.attributeValue("x")),
+                                parseInt(e.attributeValue("y")),
+                                e.attributeValue("value").equals("hit")));
+                        break;
+                    case "radar":
+                        addResult(new Radar(Radar.Type.RESULT,
+                                parseInt(e.attributeValue("id")),
+                                parseInt(e.attributeValue("x")),
+                                parseInt(e.attributeValue("y")),
+                                e.attributeValue("value").equals("ship")));
+                        break;
+                }
+            }
             return true;
         } catch (DocumentException ex) {
             System.out.println("Couldn't read incoming XML!");
@@ -102,6 +141,10 @@ public class Turn {
     
     public int getID() {
         return mID;
+    }
+    
+    private int parseInt(String s) {
+        return Integer.parseInt(s);
     }
     
     private String mTurnSource;

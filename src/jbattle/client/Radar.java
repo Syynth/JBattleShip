@@ -10,6 +10,16 @@ package jbattle.client;
  */
 public class Radar extends Action implements Move, Result {
 
+    public Radar(Type type, int id, int x, int y) {
+        this(type, id, x, y, false);
+    }
     
+    public Radar(Type type, int id, int x, int y, boolean see) {
+        mType = type;
+        mID = id;
+        this.x = x;
+        this.y = y;
+        mResult = see;
+    }
     
 }
