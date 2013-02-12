@@ -17,6 +17,13 @@ public class Board {
     }
     
     public Result[] getResults(Move[] m) {
+        Result[] r = new Result[m.length];
+        for (int i = 0; i < m.length; ++i) {
+            Action a = (Action)m[i];
+            if (grid[a.x][a.y] instanceof BattleShip) {
+                BattleShip b = (BattleShip)grid[a.x][a.y];
+            }
+        }
         return new Result[10];
     }
     
