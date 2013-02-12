@@ -104,7 +104,7 @@ public class Turn {
                         break;
                 }
             }
-            List resultNodes = mTurn.selectNodes("/turn/moves/move");
+            List resultNodes = mTurn.selectNodes("/turn/moves/result");
             for (Iterator i = resultNodes.iterator(); i.hasNext();) {
                 Element e = (Element)i.next();
                 switch (e.attributeValue("type")) {

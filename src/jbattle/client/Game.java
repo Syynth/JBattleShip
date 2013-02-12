@@ -36,8 +36,9 @@ public class Game {
         
         while (c <30 ) {
             
-            if (mNet.isClient() || c > 0)
+            if (mNet.isClient() || c > 0) {
                 mTurn = mNet.getTurn();
+            }
             mNet.sendTurn(mTurn);
             
             c++;
