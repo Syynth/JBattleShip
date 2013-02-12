@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config version="1.0">
 	<propertyGroup name="global">
-		<property name="serverAddress">j1302.syynth.com</property>
+		<property name="serverAddress">localhost</property>
 		<property name="serverPort">13000</property>
 		<property name="clientPort">13001</property>
 		<property name="volume">100</property>
