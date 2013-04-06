@@ -7,12 +7,8 @@ package jbattle.client;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Net {
 
@@ -89,9 +85,7 @@ public class Net {
                     'l' == s[0].toLowerCase().charAt(0)) {
                     atk = rmsg;
                 }
-            } catch (IOException | ClassNotFoundException ex) {
-                Logger.getLogger(Net.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            } catch (IOException | ClassNotFoundException ex) {}
         }
         return atk;
     }
