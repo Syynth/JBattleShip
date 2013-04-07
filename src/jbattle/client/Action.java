@@ -8,7 +8,7 @@ package jbattle.client;
  *
  * @author Ben
  */
-public abstract class Action extends Entity {
+public abstract class Action extends Cell {
     
     public static int getGUID() {
         return ++GUIDcounter;

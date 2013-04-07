@@ -13,12 +13,9 @@ public class Game {
         mNet = jnet;
         mNet.connect();
         
-        Input i = Boolean.parseBoolean(Config.getProperty("game", "aiControlled")) ? new AutomatedInput() : new UserInput();
-        Renderer r = new Renderer();
-        
-        mPlayerBoard = new Board(i, r, Integer.parseInt(Config.getProperty("game", "boardWidth")),
+        mPlayerBoard = new Board(Integer.parseInt(Config.getProperty("game", "boardWidth")),
                                  Integer.parseInt(Config.getProperty("game", "boardHeight")));
-        mEnemyBoard = new Board(i, r, Integer.parseInt(Config.getProperty("game", "boardWidth")),
+        mEnemyBoard = new Board(Integer.parseInt(Config.getProperty("game", "boardWidth")),
                                  Integer.parseInt(Config.getProperty("game", "boardHeight")));
         
         if (mNet.isClient()) {

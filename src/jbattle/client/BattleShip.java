@@ -8,42 +8,24 @@ package jbattle.client;
  *
  * @author Ben
  */
-public class BattleShip extends Entity {
+public class BattleShip extends Cell {
     
-    public BattleShip(int x, int y, int length) {
-        this(x, y, length, true);
+    public BattleShip() {
+        mSunk = false;
     }
     
-    public BattleShip(int x, int y, int length, boolean horizontal) {
-        this.x = x;
-        this.y = y;
-        mLength = length;
-        mHP = length;
-        mHorizontal = horizontal;
+    public void sink() {
+        mSunk = true;
     }
     
-    public void takeDamage(int damage) {
-        mHP -= damage;
+    @Override
+    public void paintComponent(java.awt.Graphics gfx) {
+        gfx.setColor(new java.awt.Color(0.8f, 0.1f, 0.3f));
+        if (mSunk) {
+            gfx.setColor(new java.awt.Color(0.4f, 0.1f, 0.3f));
+        }
+        gfx.fillRect(0, 0, this.getWidth(), this.getHeight());
     }
     
-    public boolean isAlive() {
-        return mHP > 0;
-    }
-    
-    public int length() {
-        return mLength;
-    }
-    
-    public boolean isHorizontal() {
-        return mHorizontal;
-    }
-    
-    public boolean isVertical() {
-        return !mHorizontal;
-    }
-    
-    private boolean mHorizontal;
-    private int mHP;
-    private int mLength;
-    
+    private boolean mSunk;
 }

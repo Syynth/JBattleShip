@@ -6,12 +6,14 @@
 		<property name="clientPort">13001</property>
 		<property name="volume">100</property>
 		<property name="fancyGraphics">true</property>
-		<property name="windowWidth">960</property>
-		<property name="windowHeight">500</property>
+		<property name="windowWidth">640</property>
+		<property name="windowHeight">640</property>
 	</propertyGroup>
 	<propertyGroup name="game">
 		<property name="boardWidth">32</property>
 		<property name="boardHeight">32</property>
 		<property name="aiControlled">false</property>
+		<property name="numberOfShips">5</property>
+		<property name="lengthOfShips">5</property>
 	</propertyGroup>
 </config>

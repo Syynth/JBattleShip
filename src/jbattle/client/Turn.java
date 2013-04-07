@@ -20,7 +20,6 @@ public class Turn {
     
     public Turn() {
         mID = Turn.turnCount;
-        Turn.turnCount++;
         mMoves = new ArrayList<>();
         mResults = new ArrayList<>();
     }
@@ -161,6 +160,10 @@ public class Turn {
     
     public int getID() {
         return mID;
+    }
+    
+    public int getCount() {
+        return turnCount;
     }
     
     private int parseInt(String s) {

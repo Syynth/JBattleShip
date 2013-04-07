@@ -5,9 +5,15 @@
 
 package jbattle.client;
 
-public abstract class Entity {
+import javax.swing.JComponent;
+
+public abstract class Cell extends JComponent {
     
     public int x;
     public int y;
+    
+    public void update() {
+        
+    }
     
 }
