@@ -59,14 +59,18 @@ public class Board {
             if (grid[a.x][a.y] instanceof BattleShip) {
                 BattleShip b = (BattleShip)grid[a.x][a.y];
                 b.takeDamage(1);
-                
+                r[i] = (Result)(new Shoot(Shoot.Type.RESULT, a.getID(), a.x, a.y, true));
+            } else {
+                r[i] = (Result)(new Shoot(Shoot.Type.RESULT, a.getID(), a.x, a.y, false));
             }
         }
-        return new Result[10];
+        return r;
     }
     
     public Move[] getMoves(Result[] r) {
-        return new Move[10];
+        Move[] m = new Move[1];
+        m[0] = new Shoot(Shoot.Type.MOVE, Action.getGUID(), 0, 0);
+        return m;
     }
     
     public void Render() {

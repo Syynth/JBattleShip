@@ -8,6 +8,7 @@ package jbattle.client;
 
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import org.dom4j.Document;
@@ -32,31 +33,35 @@ public class Turn {
     }
     
     public Move[] getMoves() {
-        Move[] m = null;
-        m = mMoves.toArray(m);
+        Move[] m = new Move[mMoves.size()];
+        for (int i = 0; i < mMoves.size(); ++i) {
+            m[i] = mMoves.get(i);
+        }
         return m;
     }
     
     public Result[] getResults() {
-        Result[] r = null;
-        r = mResults.toArray(r);
+        Result[] r = new Result[mMoves.size()];
+        for (int i = 0; i < mResults.size(); ++i) {
+            r[i] = mResults.get(i);
+        }
         return r;
     }
     
-    public void addMove(Action a) {
-        if (a.isMove()) {
-            mMoves.add((Move)a);
-        } else {
-            System.out.println("Tried to add Result (" + a + ") to Move list in Turn " + mID);
-        }
+    public void addMove(Move m) {
+        mMoves.add(m);
     }
     
-    public void addResult(Action a) {
-        if (a.isResult()) {
-            mResults.add((Result)a);
-        } else {
-            System.out.println("Tried to add Move (" + a + ") to Result list in Turn " + mID);
-        }
+    public void addMoves(Move[] ms) {
+        mMoves.addAll(Arrays.asList(ms));
+    }
+    
+    public void addResult(Result r) {
+        mResults.add(r);
+    }
+    
+    public void addResults(Result[] a) {
+        mResults.addAll(Arrays.asList(a));
     }
     
     public Move deleteMove(int id) {
@@ -188,6 +193,5 @@ public class Turn {
     private static int turnCount;
     private int mID;
     private Document mTurn;
-    
     
 }

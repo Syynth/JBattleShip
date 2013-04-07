@@ -35,12 +35,21 @@ public class Game {
         
         int c = 0;
         
-        while (c <30 ) {
+        while (c <30 /* This should ask both boards if they're dead.*/) {
             
-            if (mNet.isClient() || c > 0) {
-                mTurn = mNet.getTurn();
+            if (mNet.isClient() || c > 0) { // Server shouldn't ask for a turn
+                mTurn = mNet.getTurn(); // 
             }
-            mNet.sendTurn(mTurn);
+            
+            // Compute effects of enemy turn
+            
+            // Compute player turn
+            Turn nextTurn = new Turn();
+            
+            nextTurn.addResults(mPlayerBoard.getResults(mTurn.getMoves()));
+            nextTurn.addMoves(mPlayerBoard.getMoves(mTurn.getResults()));
+            
+            mNet.sendTurn(nextTurn);
             
             c++;
         }
