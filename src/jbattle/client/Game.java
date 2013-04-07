@@ -5,23 +5,18 @@
 
 package jbattle.client;
 
-import jbattle.Config;
-
 public class Game {
 
     public Game(Net jnet) {
         mNet = jnet;
         mNet.connect();
         
-        mPlayerBoard = new Board(Integer.parseInt(Config.getProperty("game", "boardWidth")),
-                                 Integer.parseInt(Config.getProperty("game", "boardHeight")));
-        mEnemyBoard = new Board(Integer.parseInt(Config.getProperty("game", "boardWidth")),
-                                 Integer.parseInt(Config.getProperty("game", "boardHeight")));
+        mPlayerBoard = new Board(true);
+        mEnemyBoard = new Board(false);
         
         if (mNet.isClient()) {
             mTurn = new Turn();
             mTurn.addMove(new Shoot(Shoot.Type.MOVE, Action.getGUID(), 0, 0));
-            mTurn.addMove(new Radar(Radar.Type.MOVE, Action.getGUID(), 0, 0, Radar.Direction.EAST));
             mNet.sendTurn(mTurn);
         } else {
             mTurn = mNet.getTurn();
@@ -32,19 +27,21 @@ public class Game {
         
         int c = 0;
         
-        while (c <30 /* This should ask both boards if they're dead.*/) {
+        while (c <3000 /* This should ask both boards if they're dead.*/) {
             
             if (mNet.isClient() || c > 0) { // Server shouldn't ask for a turn
                 mTurn = mNet.getTurn(); // 
             }
             
             // Compute effects of enemy turn
-            
+            mEnemyBoard.update();
             // Compute player turn
             Turn nextTurn = new Turn();
             
             nextTurn.addResults(mPlayerBoard.getResults(mTurn.getMoves()));
             nextTurn.addMoves(mPlayerBoard.getMoves(mTurn.getResults()));
+            
+            mPlayerBoard.update();
             
             mNet.sendTurn(nextTurn);
             

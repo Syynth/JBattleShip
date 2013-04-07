@@ -4,7 +4,6 @@
  */
 package jbattle.client;
 
-import java.awt.Color;
 import javax.swing.*;
 import jbattle.Config;
 
@@ -28,6 +27,7 @@ public class Renderer {
     }
     
     public void initGrid(Cell[][] cells) {
+        mCells = cells;
         mWindow.getContentPane().setLayout(new java.awt.GridLayout(mWide, mHigh));
         for (int i = 0; i < mWide; ++i) {
             for (int j = 0; j < mHigh; ++j) {
@@ -40,7 +40,10 @@ public class Renderer {
     public void draw() {
         for (int i = 0; i < mWide; ++i) {
             for (int j = 0; j < mHigh; ++j) {
-                mCells[i][j].update();
+                if (mCells[i][j] != null) {
+                    mCells[i][j].update();
+                    mCells[i][j].repaint();
+                }
             }
         }
         mWindow.getContentPane().validate();

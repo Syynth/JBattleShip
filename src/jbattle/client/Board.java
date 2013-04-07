@@ -10,8 +10,10 @@ import jbattle.Config;
 
 public class Board {
     
-    public Board(int w, int h) {
+    public Board(boolean isPlayer) {
         
+        int w = Integer.parseInt(Config.getProperty("game", "boardWidth"));
+        int h = Integer.parseInt(Config.getProperty("game", "boardHeight"));
         mInput = Boolean.parseBoolean(Config.getProperty("game", "aiControlled"))
                 ? new AutomatedInput() : new UserInput();
         mRender = new Renderer();
@@ -19,12 +21,12 @@ public class Board {
         grid = new Cell[w][h];
         entityRegistry = new ArrayList<>();
         
-        this.fillGrid();
+        this.fillGrid(isPlayer);
         
         mRender.initGrid(grid);
     }
     
-    private void fillGrid() {
+    private void fillGrid(boolean isPlayer) {
         int numShips = Integer.parseInt(Config.getProperty("game", "numberOfShips"));
         int lenShips = Integer.parseInt(Config.getProperty("game", "lengthOfShips"));
         
@@ -34,18 +36,23 @@ public class Board {
             }
         }
         
+        if (!isPlayer) {
+            return;
+        }
+        
         for (int i = 0; i < numShips; ++i) {
             int isVertical = (int)Math.round(Math.random());
-            int rx = 0, ry = 0;
+            int rx, ry;
             if (isVertical == 1) { // ship IS vertical
                 rx = (int)(Math.random() * grid.length);
-                ry = (int)(Math.random() * grid[0].length - lenShips);
+                ry = Math.max((int)(Math.random() * grid[0].length - lenShips), 0);
             } else { // ship is not vertical
-                rx = (int)(Math.random() * grid.length - lenShips);
+                rx = Math.max((int)(Math.random() * grid.length - lenShips), 0);
                 ry = (int)(Math.random() * grid[0].length);
             }
+            System.out.println("[" + rx + ", " + ry + "]");
             for (int j = 0; j < lenShips; ++j) {
-                grid[rx + j][ry + j] = new BattleShip();
+                grid[rx + j * (1 - isVertical)][ry + j * isVertical] = new BattleShip();
             }
         }
     }
@@ -92,6 +99,7 @@ public class Board {
                 r[i] = (Result)(new Shoot(Shoot.Type.RESULT, a.getID(), a.x, a.y, true));
             } else {
                 r[i] = (Result)(new Shoot(Shoot.Type.RESULT, a.getID(), a.x, a.y, false));
+                ((Water)grid[a.x][a.y]).shot();
             }
         }
         return r;
@@ -99,7 +107,7 @@ public class Board {
     
     public Move[] getMoves(Result[] r) {
         Move[] m = new Move[1];
-        m[0] = new Shoot(Shoot.Type.MOVE, Action.getGUID(), 0, 0);
+        m[0] = new Shoot(Shoot.Type.MOVE, Action.getGUID(), (int)(Math.random() * grid.length), (int)(Math.random() * grid[0].length));
         return m;
     }
 
