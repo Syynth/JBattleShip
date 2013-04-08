@@ -5,6 +5,8 @@
 
 package jbattle.client;
 
-public class Input {
-
+public abstract class Input {
+    
+    public abstract Move getNextMove(Cell[][] grid);
+    
 }
