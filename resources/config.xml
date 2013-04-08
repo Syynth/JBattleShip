@@ -10,8 +10,8 @@
 		<property name="windowHeight">640</property>
 	</propertyGroup>
 	<propertyGroup name="game">
-		<property name="boardWidth">32</property>
-		<property name="boardHeight">32</property>
+		<property name="boardWidth">64</property>
+		<property name="boardHeight">64</property>
 		<property name="aiControlled">false</property>
 		<property name="numberOfShips">5</property>
 		<property name="lengthOfShips">5</property>

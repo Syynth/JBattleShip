@@ -16,7 +16,7 @@ public final class PlayerBoard extends Board {
     public PlayerBoard() {
         super();
         this.fillGrid();
-        mRender.initGrid(grid);
+        mRender.setTitle("Player").initGrid(grid);
     }
     
     /**
@@ -25,6 +25,24 @@ public final class PlayerBoard extends Board {
      */
     public void setOpponent(OpponentBoard mOpp) {
         mOppBoard = mOpp;
+    }
+    
+    @Override
+    public Move[] getMoves(Result[] rs) {
+        Move[] m = new Move[1];
+        if (mOppBoard != null) {
+            Cell[][] cells = mOppBoard.getGrid();
+            for (int i = 0; i < cells.length; ++i) {
+                for (int j = 0; j < cells[0].length; ++j) {
+                    if (!cells[i][j].isSunk()) {
+                        m[0] = new Shoot(Shoot.Type.MOVE, Action.getGUID(), i, j);
+                        return m;
+                    }
+                }
+            }
+        }
+        m[0] = new Shoot(Shoot.Type.MOVE, Action.getGUID(), 0, 0);
+        return m;
     }
     
     @Override

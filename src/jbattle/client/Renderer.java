@@ -26,16 +26,24 @@ public class Renderer {
         mWindow.setVisible(true);
     }
     
+    public Renderer setTitle(String title) {
+        if (mWindow != null) {
+            mWindow.setTitle(title);
+        }
+        return this;
+    }
+    
     /**
      * Replaces the grid, and updates the UI
      * @param grid The array of Cells to makeup the new UI
      */
-    public void replaceGrid(Cell[][] grid) {
-        mWindow.removeAll();
+    public Renderer replaceGrid(Cell[][] grid) {
+        mWindow.getContentPane().removeAll();
         this.initGrid(grid);
+        return this;
     }
     
-    public void initGrid(Cell[][] cells) {
+    public Renderer initGrid(Cell[][] cells) {
         mCells = cells;
         mWindow.getContentPane().setLayout(new java.awt.GridLayout(mWide, mHigh));
         for (int i = 0; i < mWide; ++i) {
@@ -44,9 +52,10 @@ public class Renderer {
             }
         }
         mWindow.getContentPane().validate();
+        return this;
     }
     
-    public void draw() {
+    public Renderer draw() {
         for (int i = 0; i < mWide; ++i) {
             for (int j = 0; j < mHigh; ++j) {
                 if (mCells[i][j] != null) {
@@ -56,6 +65,7 @@ public class Renderer {
             }
         }
         mWindow.getContentPane().validate();
+        return this;
     }
     
     private Cell[][] mCells;

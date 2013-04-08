@@ -10,7 +10,7 @@ public final class OpponentBoard extends Board {
         super();
 
         this.fillGrid();
-        mRender.initGrid(grid);
+        mRender.initGrid(grid).setTitle("Opponent");
         mInput = null;
     }
 

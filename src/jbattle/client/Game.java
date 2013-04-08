@@ -29,7 +29,7 @@ public class Game {
         
         int c = 0;
         
-        while (c <3000 /* This should ask both boards if they're dead.*/) {
+        while (c <4096 /* This should ask both boards if they're dead.*/) {
             
             if (mNet.isClient() || c > 0) { // Server shouldn't ask for a turn
                 mTurn = mNet.getTurn(); // 
