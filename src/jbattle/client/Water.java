@@ -28,7 +28,7 @@ public class Water extends Cell {
         gfx.fillRect(0, 0, this.getWidth(), this.getHeight());
     }
     
-    public void shot() {
+    public void sink() {
         mShot = true;
     }
     

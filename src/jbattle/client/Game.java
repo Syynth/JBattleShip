@@ -11,8 +11,9 @@ public class Game {
         mNet = jnet;
         mNet.connect();
         
-        mPlayerBoard = new Board(true);
-        mEnemyBoard = new Board(false);
+        mPlayerBoard = new PlayerBoard();
+        mOppBoard = new OpponentBoard();
+        mPlayerBoard.setOpponent(mOppBoard);
         
         if (mNet.isClient()) {
             mTurn = new Turn();
@@ -34,8 +35,9 @@ public class Game {
             }
             
             // Compute effects of enemy turn
-            // @TODO mEnemyBoard.getResults(mTurn.getMoves()); (Update Enemy Board!)
-            mEnemyBoard.update();
+            mOppBoard.getResults(mTurn.getMoves());
+            mOppBoard.update();
+            
             // Compute player turn
             Turn nextTurn = new Turn();
             
@@ -53,6 +55,6 @@ public class Game {
     
     private Net mNet;
     private Turn mTurn;
-    private Board mPlayerBoard;
-    private Board mEnemyBoard;
+    private PlayerBoard mPlayerBoard;
+    private OpponentBoard mOppBoard;
 }

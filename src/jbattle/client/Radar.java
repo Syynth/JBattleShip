@@ -25,6 +25,11 @@ public class Radar extends Action implements Move, Result {
         this.y = y;
         mResult = see;
     }
+
+    @Override
+    public boolean getResult() {
+        return mResult;
+    }
     
     public enum Direction {
         NORTH,

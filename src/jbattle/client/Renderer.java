@@ -26,6 +26,15 @@ public class Renderer {
         mWindow.setVisible(true);
     }
     
+    /**
+     * Replaces the grid, and updates the UI
+     * @param grid The array of Cells to makeup the new UI
+     */
+    public void replaceGrid(Cell[][] grid) {
+        mWindow.removeAll();
+        this.initGrid(grid);
+    }
+    
     public void initGrid(Cell[][] cells) {
         mCells = cells;
         mWindow.getContentPane().setLayout(new java.awt.GridLayout(mWide, mHigh));

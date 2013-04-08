@@ -30,5 +30,10 @@ public class Shoot extends Action implements Move, Result {
             return "<result type=\"shoot\" id=\"" + mID + "\" value=\"" + mResult + "\" />";
         }
     }
+
+    @Override
+    public boolean getResult() {
+        return mResult;
+    }
     
 }

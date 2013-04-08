@@ -9,5 +9,5 @@ package jbattle.client;
  * @author Ben
  */
 public interface Result {
-    
+    public boolean getResult();
 }

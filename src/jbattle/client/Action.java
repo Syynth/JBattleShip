@@ -10,6 +10,10 @@ package jbattle.client;
  */
 public abstract class Action extends Cell {
     
+    /**
+     *
+     * @return Returns a unique GUID for any action.
+     */
     public static int getGUID() {
         return ++GUIDcounter;
     }
@@ -32,6 +36,9 @@ public abstract class Action extends Cell {
     
     protected boolean mResult;
     
+    /**
+     * Either MOVE or RESULT
+     */
     public enum Type {
         MOVE,
         RESULT

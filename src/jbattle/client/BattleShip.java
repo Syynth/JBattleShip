@@ -14,8 +14,9 @@ public class BattleShip extends Cell {
         mSunk = false;
     }
     
-    public void sink() {
+    public BattleShip sink() {
         mSunk = true;
+        return this;
     }
     
     @Override
