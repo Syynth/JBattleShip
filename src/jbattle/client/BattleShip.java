@@ -20,6 +20,11 @@ public class BattleShip extends Cell {
     }
     
     @Override
+    public boolean isSunk() {
+        return mSunk;
+    }
+    
+    @Override
     public void paintComponent(java.awt.Graphics gfx) {
         gfx.setColor(new java.awt.Color(0.8f, 0.1f, 0.3f));
         if (mSunk) {

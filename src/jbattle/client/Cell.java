@@ -12,6 +12,10 @@ public abstract class Cell extends JComponent {
     public int x;
     public int y;
     
+    public boolean isSunk() {
+        return false;
+    }
+    
     public void update() {
         
     }

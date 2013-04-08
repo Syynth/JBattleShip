@@ -18,6 +18,7 @@ public class Game {
         if (mNet.isClient()) {
             mTurn = new Turn();
             mTurn.addMove(new Shoot(Shoot.Type.MOVE, Action.getGUID(), 0, 0));
+            mTurn.addResult(new Shoot(Shoot.Type.RESULT, -1, 0, 0));
             mNet.sendTurn(mTurn);
         } else {
             mTurn = mNet.getTurn();

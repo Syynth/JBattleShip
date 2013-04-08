@@ -11,7 +11,12 @@ package jbattle.client;
 public class Water extends Cell {
     
     public Water() {
-        mShot = false;
+        mSunk = false;
+    }
+    
+    @Override
+    public boolean isSunk() {
+        return mSunk;
     }
     
     @Override
@@ -20,7 +25,7 @@ public class Water extends Cell {
         gfx.setColor(new java.awt.Color(r.nextFloat() * .2f,
                                         r.nextFloat() * .3f,
                                         r.nextFloat() * .2f + .8f));
-        if (mShot) {
+        if (mSunk) {
             gfx.setColor(new java.awt.Color(r.nextFloat() * .1f,
                                         r.nextFloat() * .15f,
                                         r.nextFloat() * .1f + .4f));
@@ -29,9 +34,9 @@ public class Water extends Cell {
     }
     
     public void sink() {
-        mShot = true;
+        mSunk = true;
     }
     
-    private boolean mShot;
+    private boolean mSunk;
     
 }

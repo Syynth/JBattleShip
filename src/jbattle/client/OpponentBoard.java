@@ -19,10 +19,10 @@ public final class OpponentBoard extends Board {
         for (Result r : rs) {
             if (r instanceof Shoot) {
                 if (r.getResult()) {
-                    grid[((Action)r).x][((Action)r).y] = (new BattleShip()).sink();
+                    grid[((Action) r).x][((Action) r).y] = (new BattleShip()).sink();
                     mRender.replaceGrid(grid);
                 } else {
-                    ((Water) grid[((Action)r).x][((Action)r).y]).sink();
+                    ((Water) grid[((Action) r).x][((Action) r).y]).sink();
                 }
             }
         }
@@ -36,5 +36,9 @@ public final class OpponentBoard extends Board {
                 grid[x][y] = new Water();
             }
         }
+    }
+    
+    Cell[][] getGrid() {
+        return grid;
     }
 }

@@ -27,7 +27,7 @@ public class Shoot extends Action implements Move, Result {
         if (isMove()) {
             return "<move type=\"shoot\" id=\"" + mID + "\" x=\"" + x + "\" y=\"" + y + "\" />";
         } else {
-            return "<result type=\"shoot\" id=\"" + mID + "\" value=\"" + mResult + "\" />";
+            return "<result type=\"shoot\" id=\"" + mID + "\" x=\"" + x + "\" y=\"" + y + "\" value=\"" + mResult + "\" />";
         }
     }
 
