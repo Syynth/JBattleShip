@@ -35,7 +35,7 @@ public class Game {
             }
             
             // Compute effects of enemy turn
-            mOppBoard.getResults(mTurn.getMoves());
+            mOppBoard.getMoves(mTurn.getResults());
             mOppBoard.update();
             
             // Compute player turn

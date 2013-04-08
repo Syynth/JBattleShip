@@ -92,6 +92,9 @@ public class Turn {
             List moveNodes = mTurn.selectNodes("/turn/moves/move");
             for (Iterator i = moveNodes.iterator(); i.hasNext();) {
                 Element e = (Element)i.next();
+                if (!e.hasContent()) {
+                    continue;
+                }
                 switch (e.attributeValue("type")) {
                     case "shoot":
                         addMove(new Shoot(Shoot.Type.MOVE,
@@ -108,9 +111,12 @@ public class Turn {
                         break;
                 }
             }
-            List resultNodes = mTurn.selectNodes("/turn/moves/result");
+            List resultNodes = mTurn.selectNodes("/turn/results/result");
             for (Iterator i = resultNodes.iterator(); i.hasNext();) {
                 Element e = (Element)i.next();
+                if (!e.hasContent()) {
+                    continue;
+                }
                 switch (e.attributeValue("type")) {
                     case "shoot":
                         addResult(new Shoot(Shoot.Type.RESULT,

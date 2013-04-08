@@ -15,19 +15,18 @@ public final class OpponentBoard extends Board {
     }
 
     @Override
-    public Result[] getResults(Move[] m) {
-        Result[] rs = super.getResults(m);
+    public Move[] getMoves(Result[] rs) {
         for (Result r : rs) {
             if (r instanceof Shoot) {
                 if (r.getResult()) {
-                    grid[((Action) r).x][((Action) r).y] = (new BattleShip()).sink();
+                    grid[((Action)r).x][((Action)r).y] = (new BattleShip()).sink();
                     mRender.replaceGrid(grid);
                 } else {
-                    ((Water) grid[((Action) r).x][((Action) r).y]).sink();
+                    ((Water) grid[((Action)r).x][((Action)r).y]).sink();
                 }
             }
         }
-        return rs;
+        return super.getMoves(rs);
     }
 
     @Override
