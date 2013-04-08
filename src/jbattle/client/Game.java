@@ -34,6 +34,7 @@ public class Game {
             }
             
             // Compute effects of enemy turn
+            // @TODO mEnemyBoard.getResults(mTurn.getMoves()); (Update Enemy Board!)
             mEnemyBoard.update();
             // Compute player turn
             Turn nextTurn = new Turn();

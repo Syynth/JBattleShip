@@ -16,6 +16,9 @@ public class Board {
         int h = Integer.parseInt(Config.getProperty("game", "boardHeight"));
         mInput = Boolean.parseBoolean(Config.getProperty("game", "aiControlled"))
                 ? new AutomatedInput() : new UserInput();
+        if (!isPlayer) {
+            mInput = null;      
+        }
         mRender = new Renderer();
         
         grid = new Cell[w][h];
