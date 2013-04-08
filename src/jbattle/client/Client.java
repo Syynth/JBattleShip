@@ -95,5 +95,4 @@ public class Client {
     private Socket mConnection;
     private ObjectOutputStream mOutput;
     private ObjectInputStream mInput;
-    private final int mPort = 13001;
 }
