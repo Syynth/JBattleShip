@@ -37,6 +37,10 @@ public class Renderer {
         return this;
     }
     
+    public boolean isCloseRequested() {
+        return false;
+    }
+    
     /**
      * Replaces the grid, and updates the UI
      * @param grid The array of Cells to makeup the new UI

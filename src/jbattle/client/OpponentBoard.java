@@ -33,6 +33,10 @@ public final class OpponentBoard extends Board {
         }
         return super.getMoves(rs);
     }
+    
+    public boolean isAlive() {
+        return !mRender.isCloseRequested();
+    }
 
     @Override
     protected void fillGrid() {

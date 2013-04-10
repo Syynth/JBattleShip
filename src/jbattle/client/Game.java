@@ -29,7 +29,7 @@ public class Game {
         
         int c = 0;
         
-        while (mPlayerBoard.isAlive()) {
+        while (mPlayerBoard.isAlive() && mOppBoard.isAlive()) {
             
             if (mNet.isClient() || c > 0) { // Server shouldn't ask for a turn
                 mTurn = mNet.getTurn(); // 

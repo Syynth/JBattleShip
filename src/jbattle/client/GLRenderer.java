@@ -30,4 +30,9 @@ public class GLRenderer extends Renderer {
         }
     }
     
+    @Override
+    public boolean isCloseRequested() {
+        return Display.isCloseRequested();
+    }
+    
 }

@@ -32,6 +32,9 @@ public final class PlayerBoard extends Board {
     }
     
     public boolean isAlive() {
+        if (mRender.isCloseRequested()) {
+            return false;
+        }
         for (int x = 0; x < grid.length; ++x) {
             for (int y = 0; y < grid[0].length; ++y) {
                 if (grid[x][y] instanceof BattleShip && !grid[x][y].isSunk()) {
