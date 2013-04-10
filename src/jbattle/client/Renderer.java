@@ -72,9 +72,9 @@ public class Renderer {
         return this;
     }
     
-    private Cell[][] mCells;
+    protected Cell[][] mCells;
     private JFrame mWindow;
-    private int mWidth, mHeight;
-    private int mWide, mHigh;
+    protected int mWidth, mHeight;
+    protected int mWide, mHigh;
     
 }
