@@ -22,17 +22,50 @@ public class GLRenderer extends Renderer {
     
     public GLRenderer() {
         super();
+    }
+    
+    @Override
+    public Renderer show() {
         try {
             Display.setDisplayMode(new DisplayMode(mWidth, mHeight));
             Display.create();
         } catch (LWJGLException ex) {
             Logger.getLogger(GLRenderer.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return this;
+    }
+    
+    @Override
+    public Renderer setTitle(String title) {
+        Display.setTitle(title);
+        return this;
+    }
+    
+    @Override
+    public Renderer draw() {
+        Display.update();
+        return this;
+    }
+    
+    @Override
+    public Renderer initGrid(Cell[][] grid) {
+        mCells = grid;
+        return this;
+    }
+    
+    @Override
+    public Renderer replaceGrid(Cell[][] grid) {
+        return initGrid(grid);
     }
     
     @Override
     public boolean isCloseRequested() {
         return Display.isCloseRequested();
+    }
+    
+    @Override
+    public void close() {
+        Display.destroy();
     }
     
 }

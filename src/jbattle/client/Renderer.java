@@ -41,6 +41,8 @@ public class Renderer {
         return false;
     }
     
+    public void close() { }
+    
     /**
      * Replaces the grid, and updates the UI
      * @param grid The array of Cells to makeup the new UI
