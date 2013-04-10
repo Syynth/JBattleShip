@@ -18,6 +18,7 @@ public final class OpponentBoard extends Board {
         if (Config.getBoolean("fancyGraphics")) {
             mRender.show();
         }
+        mDead = false;
     }
 
     @Override
@@ -36,7 +37,7 @@ public final class OpponentBoard extends Board {
     }
     
     public boolean isAlive() {
-        return !mRender.isCloseRequested();
+        return !mRender.isCloseRequested() && mDead;
     }
 
     @Override
@@ -51,4 +52,6 @@ public final class OpponentBoard extends Board {
     Cell[][] getGrid() {
         return grid;
     }
+    
+    private boolean mDead;
 }

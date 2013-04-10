@@ -52,6 +52,8 @@ public class Game {
             c++;
         }
         
+        Turn t = new Turn();
+        
     }
     
     private Net mNet;
