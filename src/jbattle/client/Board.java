@@ -12,9 +12,9 @@ public abstract class Board {
     
     public Board() {
         
-        int w = Integer.parseInt(Config.getProperty("game", "boardWidth"));
-        int h = Integer.parseInt(Config.getProperty("game", "boardHeight"));
-        mInput = Boolean.parseBoolean(Config.getProperty("game", "aiControlled"))
+        int w = Config.getInt("game", "boardWidth");
+        int h = Config.getInt("game", "boardHeight");
+        mInput = Config.getBoolean("game", "aiControlled")
                 ? new AutomatedInput() : new UserInput();
         
         mRender = new Renderer();

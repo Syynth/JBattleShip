@@ -47,6 +47,30 @@ public final class Config {
         }
     }
     
+    public static boolean getBoolean(String name) {
+        return Boolean.parseBoolean(getProperty(name));
+    }
+    
+    public static boolean getBoolean(String group, String name) {
+        return Boolean.parseBoolean(getProperty(group, name));
+    }
+    
+    public static int getInt(String name) {
+        return Integer.parseInt(getProperty(name));
+    }
+    
+    public static int getInt(String group, String name) {
+        return Integer.parseInt(getProperty(group, name));
+    }
+    
+    public static double getDouble(String name) {
+        return Double.parseDouble(getProperty(name));
+    }
+    
+    public static double getDouble(String group, String name) {
+        return Double.parseDouble(getProperty(group, name));
+    }
+    
     public static boolean setProperty(String name, String value) {
         return setProperty("global", name, value);
     }

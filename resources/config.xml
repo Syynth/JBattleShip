@@ -5,6 +5,7 @@
 		<property name="serverPort">13000</property>
 		<property name="clientPort">13001</property>
 		<property name="volume">100</property>
+		<property name="useNetworkXML">false</property>
 		<property name="fancyGraphics">true</property>
 		<property name="windowWidth">640</property>
 		<property name="windowHeight">640</property>

@@ -153,6 +153,26 @@ public class Turn {
         return xml.replace("\n", "");
     }
     
+    public String renderTurnString() {
+        String turn = "";
+        if (mResults.size() > 0) {
+            if (mResults.get(0).getResult()) {
+                turn += "hitt";
+            } else {
+                turn += "miss";
+            }
+        } else {
+            turn += "miss";
+        }
+        if (mMoves.size() > 0) {
+            turn += "," + ((Action)mMoves.get(0)).x + "," +
+                    ((Action)mMoves.get(0)).y;
+        } else {
+            turn += ",0,0";
+        }
+        return turn;
+    }
+    
     @Override
     public String toString() {
         return renderTurnXML();

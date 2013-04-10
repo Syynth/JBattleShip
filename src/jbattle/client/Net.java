@@ -9,6 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import jbattle.Config;
 
 public class Net {
 
@@ -91,12 +92,18 @@ public class Net {
     }
     
     public void sendTurn(Turn t) {
-        System.out.println("Writing message: " + t);
+        String fax;
+        if (Config.getBoolean("useNetworkXML")) {
+            fax = t.toString();
+        } else {
+            fax = t.renderTurnString();
+        }
+        System.out.println("Writing message: " + fax);
         try {
-            mOutput.writeObject(new String(t.toString().getBytes(), "UTF-8"));
+            mOutput.writeObject(new String(fax.getBytes(), "UTF-8"));
             mOutput.flush();
         } catch (IOException e) {
-            System.out.println("Error writing message: " + t);
+            System.out.println("Error writing message: " + fax);
         }
     }
     

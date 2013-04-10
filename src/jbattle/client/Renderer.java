@@ -14,10 +14,10 @@ import jbattle.Config;
 public class Renderer {
     
     public Renderer() {
-        mWidth = Integer.parseInt(Config.getProperty("windowWidth"));
-        mHeight = Integer.parseInt(Config.getProperty("windowHeight"));
-        mWide = Integer.parseInt(Config.getProperty("game", "boardWidth"));
-        mHigh = Integer.parseInt(Config.getProperty("game", "boardHeight"));
+        mWidth = Config.getInt("windowWidth");
+        mHeight = Config.getInt("windowHeight");
+        mWide = Config.getInt("game", "boardWidth");
+        mHigh = Config.getInt("game", "boardHeight");
         
         mWindow = new JFrame();
         mWindow.setSize(mWidth, mHeight);

@@ -51,8 +51,8 @@ public final class PlayerBoard extends Board {
     
     @Override
     protected void fillGrid() {
-        int numShips = Integer.parseInt(Config.getProperty("game", "numberOfShips"));
-        int lenShips = Integer.parseInt(Config.getProperty("game", "lengthOfShips"));
+        int numShips = Config.getInt("game", "numberOfShips");
+        int lenShips = Config.getInt("game", "lengthOfShips");
         
         for (int x = 0; x < grid.length; ++x) {
             for (int y = 0; y < grid[0].length; ++y) {

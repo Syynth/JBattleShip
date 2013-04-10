@@ -17,7 +17,7 @@ public class Client {
     public Client() {
         Config.LoadConfig("./resources/config.xml");
         try {
-            mConnection = new Socket(Config.getProperty("serverAddress"), Integer.parseInt(Config.getProperty("serverPort")));
+            mConnection = new Socket(Config.getProperty("serverAddress"), Config.getInt("serverPort"));
             mInput = new ObjectInputStream(mConnection.getInputStream());
             mOutput = new ObjectOutputStream(mConnection.getOutputStream());
         } catch (IOException e) {
@@ -34,7 +34,7 @@ public class Client {
         }
         
         ServerProtocol protocol = new ServerProtocol(ServerProtocol.CLIENT);
-        protocol.setClientPort(Integer.parseInt(Config.getProperty("clientPort")));
+        protocol.setClientPort(Config.getInt("clientPort"));
         writeMessage(protocol.handleMessage("begin"));
         
         int mode = -1;

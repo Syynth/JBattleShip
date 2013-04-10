@@ -10,13 +10,13 @@ import java.awt.Dimension;
 import jbattle.Config;
 
 public class AutomatedInput extends Input {
-
+    
     public AutomatedInput() {
         mScheduledShots = new LinkedList<>();
-        mSpacing = Integer.parseInt(Config.getProperty("game", "lengthOfShips"));
+        mSpacing = Config.getInt("game", "lengthOfShips");
         mOffset = 0;
-        w = Integer.parseInt(Config.getProperty("game", "boardWidth"));
-        h = Integer.parseInt(Config.getProperty("game", "boardHeight"));
+        w = Config.getInt("game", "boardWidth");
+        h = Config.getInt("game", "boardHeight");
         
         this.fillShots();
     }
@@ -79,10 +79,6 @@ public class AutomatedInput extends Input {
     
     private Dimension t2d(int n) {
         return new Dimension(n % w, n / w);
-    }
-    
-    private int t1d(int x, int y) {
-        return w * (Math.min(y - 1, 0)) + x;
     }
     
     private LinkedList<Dimension> mScheduledShots;
