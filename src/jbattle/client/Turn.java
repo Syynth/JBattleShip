@@ -156,10 +156,14 @@ public class Turn {
     public String renderTurnString() {
         String turn = "";
         if (mResults.size() > 0) {
-            if (mResults.get(0).getResult()) {
-                turn += "hitt";
+            if (mResults.get(0) instanceof Loss) {
+                turn += "loss";
             } else {
-                turn += "miss";
+                if (mResults.get(0).getResult()) {
+                    turn += "hitt";
+                } else {
+                    turn += "miss";
+                }
             }
         } else {
             turn += "miss";
