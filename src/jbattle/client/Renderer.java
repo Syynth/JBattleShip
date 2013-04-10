@@ -8,7 +8,8 @@ import javax.swing.*;
 import jbattle.Config;
 
 /**
- *
+ * Provides a default implementation of providing a graphical view
+ * of the game world.
  * @author Ben
  */
 public class Renderer {
@@ -18,12 +19,15 @@ public class Renderer {
         mHeight = Config.getInt("windowHeight");
         mWide = Config.getInt("game", "boardWidth");
         mHigh = Config.getInt("game", "boardHeight");
-        
+    }
+    
+    public Renderer show() {
         mWindow = new JFrame();
         mWindow.setSize(mWidth, mHeight);
         mWindow.setResizable(false);
         mWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mWindow.setVisible(true);
+        return this;
     }
     
     public Renderer setTitle(String title) {

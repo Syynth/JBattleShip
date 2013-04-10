@@ -17,7 +17,8 @@ public abstract class Board {
         mInput = Config.getBoolean("game", "aiControlled")
                 ? new AutomatedInput() : new UserInput();
         
-        mRender = new Renderer();
+        mRender = (Config.getBoolean("fancyGraphics") ?
+                new Renderer() : new GLRenderer()).show();
         
         grid = new Cell[w][h];
         entityRegistry = new ArrayList<>();
