@@ -22,15 +22,19 @@ public class GLRenderer extends Renderer {
     
     public GLRenderer() {
         super();
+        mShown = false;
     }
     
     @Override
     public Renderer show() {
-        try {
-            Display.setDisplayMode(new DisplayMode(mWidth, mHeight));
-            Display.create();
-        } catch (LWJGLException ex) {
-            Logger.getLogger(GLRenderer.class.getName()).log(Level.SEVERE, null, ex);
+        if (mCells != null) {
+            try {
+                Display.setDisplayMode(new DisplayMode(mWidth, mHeight));
+                Display.create();
+                mShown = true;
+            } catch (LWJGLException ex) {
+                Logger.getLogger(GLRenderer.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return this;
     }
@@ -60,12 +64,15 @@ public class GLRenderer extends Renderer {
     
     @Override
     public boolean isCloseRequested() {
-        return Display.isCloseRequested();
+        return mShown ? Display.isCloseRequested() : false;
     }
     
     @Override
     public void close() {
-        Display.destroy();
+        if (mShown) {
+            Display.destroy();
+        }
     }
     
+    private boolean mShown;
 }

@@ -16,11 +16,7 @@ public final class PlayerBoard extends Board {
     public PlayerBoard(boolean isServer) {
         super();
         this.fillGrid();
-        if (isServer) {
-            mRender.setTitle("Server: Player").initGrid(grid);
-        } else {
-            mRender.setTitle("Client: Player").initGrid(grid);
-        }
+        mRender.show().initGrid(grid).setTitle(isServer ? "Server" : "Client");
     }
     
     /**

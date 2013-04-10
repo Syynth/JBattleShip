@@ -18,7 +18,7 @@ public abstract class Board {
                 ? new AutomatedInput() : new UserInput();
         
         mRender = (!Config.getBoolean("fancyGraphics") ?
-                new Renderer() : new GLRenderer()).show();
+                new Renderer() : new GLRenderer());
         
         grid = new Cell[w][h];
         entityRegistry = new ArrayList<>();
