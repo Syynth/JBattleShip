@@ -6,12 +6,17 @@ package jbattle.client;
  */
 public final class OpponentBoard extends Board {
 
-    public OpponentBoard() {
+    public OpponentBoard(boolean isServer) {
         super();
 
         this.fillGrid();
         mRender.initGrid(grid).setTitle("Opponent");
         mInput = null;
+        if (isServer) {
+            mRender.setTitle("Server: Opponent").initGrid(grid);
+        } else {
+            mRender.setTitle("Client: Opponent").initGrid(grid);
+        }
     }
 
     @Override

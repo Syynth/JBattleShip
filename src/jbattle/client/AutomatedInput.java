@@ -28,15 +28,47 @@ public class AutomatedInput extends Input {
      */
     @Override
     public Move getNextMove(Cell[][] grid) {
-        Dimension d;
-        if (mScheduledShots.size() <= 0) {
-            mScheduledShots = new LinkedList<>();
-            mOffset++;
-            mOffset %= mSpacing;
-            this.fillShots();
+        Dimension d = findNextTarget(grid);
+        if (d == null) {
+            if (mScheduledShots.size() <= 0) {
+                mScheduledShots = new LinkedList<>();
+                mOffset++;
+                mOffset %= mSpacing;
+                this.fillShots();
+            }
+            d = mScheduledShots.pop();
         }
-        d = mScheduledShots.pop();
         return new Shoot(Shoot.Type.MOVE, Action.getGUID(), d.width, d.height);
+    }
+    
+    private Dimension findNextTarget(Cell[][] g) {
+        for (int x = 0; x < g.length; ++x) {
+            for (int y = 0; y < g[0].length; ++y) {
+                if (g[x][y] instanceof BattleShip) {
+                    if (x < g.length - 1) {
+                        if (!g[x + 1][y].isSunk()) {
+                            return new Dimension(x + 1, y);
+                        }
+                    }
+                    if (y < g[0].length - 1) {
+                        if (!g[x][y + 1].isSunk()) {
+                            return new Dimension(x, y + 1);
+                        }
+                    }
+                    if (x > 1) {
+                        if (!g[x - 1][y].isSunk()) {
+                            return new Dimension(x - 1, y);
+                        }
+                    }
+                    if (y > 1) {
+                        if (!g[x][y - 1].isSunk()) {
+                            return new Dimension(x, y - 1);
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
     
     private void fillShots() {

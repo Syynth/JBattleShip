@@ -11,8 +11,8 @@ public class Game {
         mNet = jnet;
         mNet.connect();
         
-        mPlayerBoard = new PlayerBoard();
-        mOppBoard = new OpponentBoard();
+        mPlayerBoard = new PlayerBoard(mNet.isServer());
+        mOppBoard = new OpponentBoard(mNet.isServer());
         mPlayerBoard.setOpponent(mOppBoard);
         
         if (mNet.isClient()) {
@@ -29,7 +29,7 @@ public class Game {
         
         int c = 0;
         
-        while (c <4096 /* This should ask both boards if they're dead.*/) {
+        while (mPlayerBoard.isAlive()) {
             
             if (mNet.isClient() || c > 0) { // Server shouldn't ask for a turn
                 mTurn = mNet.getTurn(); // 

@@ -13,10 +13,14 @@ import jbattle.Config;
  */
 public final class PlayerBoard extends Board {
     
-    public PlayerBoard() {
+    public PlayerBoard(boolean isServer) {
         super();
         this.fillGrid();
-        mRender.setTitle("Player").initGrid(grid);
+        if (isServer) {
+            mRender.setTitle("Server: Player").initGrid(grid);
+        } else {
+            mRender.setTitle("Client: Player").initGrid(grid);
+        }
     }
     
     /**
@@ -27,10 +31,21 @@ public final class PlayerBoard extends Board {
         mOppBoard = mOpp;
     }
     
+    public boolean isAlive() {
+        for (int x = 0; x < grid.length; ++x) {
+            for (int y = 0; y < grid[0].length; ++y) {
+                if (grid[x][y] instanceof BattleShip && !grid[x][y].isSunk()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
     @Override
     public Move[] getMoves(Result[] rs) {
         Move[] m = new Move[1];
-        m[0] = mInput.getNextMove(grid);
+        m[0] = mInput.getNextMove(mOppBoard.getGrid());
         return m;
     }
     
