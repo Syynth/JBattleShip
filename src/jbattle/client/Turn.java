@@ -19,7 +19,8 @@ import org.dom4j.io.SAXReader;
 public class Turn {
     
     public Turn() {
-        mID = Turn.turnCount;
+        mID = Turn.turnCount++;
+        Turn.masterTurnList.add(this);
         mMoves = new ArrayList<>();
         mResults = new ArrayList<>();
     }
@@ -29,6 +30,34 @@ public class Turn {
         mMoves = new ArrayList<>();
         mResults = new ArrayList<>();
         parseTurnXML(mTurnSource);
+    }
+    
+    public Turn(String[] turnRXY) {
+        mTurnSource = null;
+        mID = Turn.turnCount++;
+        mMoves = new ArrayList<>();
+        mResults = new ArrayList<>();
+        switch (turnRXY[0].toLowerCase().charAt(0)) {
+            case 'h':
+                mResults.add(new Shoot(Shoot.Type.RESULT, -1, getLastX(), getLastY(), true));
+                break;
+            case 'm':
+                mResults.add(new Shoot(Shoot.Type.RESULT, -1, getLastX(), getLastY(), false));
+                break;
+            case 'l':
+                mResults.add(new Loss());
+                break;
+        }
+    }
+    
+    private int getLastX() {
+        Turn t = Turn.masterTurnList.get(Turn.masterTurnList.size());
+        return ((Action)t.mMoves.get(0)).x;
+    }
+    
+    private int getLastY() {
+        Turn t = Turn.masterTurnList.get(Turn.masterTurnList.size());
+        return ((Action)t.mMoves.get(0)).y;
     }
     
     public Move[] getMoves() {
@@ -220,5 +249,7 @@ public class Turn {
     private static int turnCount;
     private int mID;
     private Document mTurn;
+    
+    private static ArrayList<Turn> masterTurnList = new ArrayList<>();
     
 }

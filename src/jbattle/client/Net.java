@@ -16,6 +16,7 @@ public class Net {
     public Net(int mode, String address) {
 
         mMode = mode;
+        mLastTurn = null;
 
         try {
             String[] temp = address.trim().split(":");
@@ -133,4 +134,6 @@ public class Net {
     private ObjectInputStream mInput;
     private ObjectOutputStream mOutput;
     private ClientProtocol mProtocol;
+    
+    private Turn mLastTurn;
 }
