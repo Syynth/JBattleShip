@@ -31,6 +31,8 @@ public final class OpponentBoard extends Board {
                 } else {
                     ((Water) grid[((Action) r).x][((Action) r).y]).sink();
                 }
+            } else if (r instanceof Loss) {
+                mDead = true;
             }
         }
         return super.getMoves(rs);

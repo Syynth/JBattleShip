@@ -109,12 +109,13 @@ public class Net {
     }
     
     public Turn getTurn() {
-        Turn t = null;
         while (true) {
             try {
                 String rmsg, s[]; // remote message, pieces of rmsg
                 rmsg = mInput.readObject().toString();
-                return new Turn(rmsg);
+                Turn t = new Turn(rmsg);
+                System.out.println("Receiving message: " + t);
+                return t;
             } catch (IOException | ClassNotFoundException ex) {
             }
         }

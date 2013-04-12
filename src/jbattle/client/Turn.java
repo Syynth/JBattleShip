@@ -155,6 +155,9 @@ public class Turn {
                                 parseInt(e.attributeValue("y")),
                                 parseBool(e.attributeValue("value"))));
                         break;
+                    case "loss":
+                        addResult(new Loss());
+                        break;
                 }
             }
             return true;
