@@ -3,9 +3,6 @@ package jbattle.client;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.lwjgl.LWJGLException;
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.util.glu.GLU.*;
-
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
@@ -58,7 +55,7 @@ public class GLRenderer extends Renderer {
                         if (mCells[x][y] instanceof Water) {
                             GL11.glColor3f(r() * .2f,
                                     r() * .3f,
-                                    (float)Math.abs(Math.sin(Turn.getTurnCount() / 30 + Math.sin(x) + y)) * .2f + .8f);
+                                    (float)Math.abs(Math.sin(System.currentTimeMillis() / 300 + Math.sin(x + y) + y)) * .2f + .8f);
                         } else {
                             GL11.glColor3f(.8f, .1f, .3f);
                         }

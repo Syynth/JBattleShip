@@ -57,6 +57,20 @@ public class Game {
         t.addResult(new Loss());
         mNet.sendTurn(t);
         
+        Renderer r1 = mPlayerBoard.getRender(), 
+                r2 = mOppBoard.getRender();
+        if (!mOppBoard.isAlive()) {
+            r1.setTitle("Victory!");
+            r2.setTitle("Victory!");
+        } else {
+            r1.setTitle("Defeat!");
+            r2.setTitle("Defeat!");
+        }
+        while (!r1.isCloseRequested() && !r2.isCloseRequested()) {
+            mPlayerBoard.update();
+            mOppBoard.update();
+        }
+        
     }
     
     private Net mNet;

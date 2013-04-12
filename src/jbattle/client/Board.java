@@ -25,6 +25,10 @@ public abstract class Board {
         
     }
     
+    public Renderer getRender() {
+        return mRender;
+    }
+    
     protected abstract void fillGrid();
     
     public void update() {
