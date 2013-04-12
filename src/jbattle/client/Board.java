@@ -32,7 +32,7 @@ public abstract class Board {
     protected abstract void fillGrid();
     
     public void update() {
-        mRender.draw(mGrid);
+        mRender.draw(mOppBoard.getGrid());
     }
     
     public void addEntity(Cell e) {
