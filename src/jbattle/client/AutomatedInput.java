@@ -72,13 +72,11 @@ public class AutomatedInput extends Input {
     }
     
     private void fillShots() {
-        for (int i = mOffset; i < w * h; i += mSpacing) {
-            mScheduledShots.add(t2d(i));
+        for (int y = 0; y < Config.getInt("game", "boardHeight"); ++y) {
+            for (int x = y % mSpacing; x < Config.getInt("game", "boardWidth"); x += mSpacing) {
+                mScheduledShots.add(new Dimension(x, y));
+            }
         }
-    }
-    
-    private Dimension t2d(int n) {
-        return new Dimension(n % w, n / w);
     }
     
     private LinkedList<Dimension> mScheduledShots;

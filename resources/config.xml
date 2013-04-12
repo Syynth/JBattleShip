@@ -6,12 +6,12 @@
 		<property name="clientPort">13001</property>
 		<property name="useNetworkXML">true</property>
 		<property name="fancyGraphics">true</property>
-		<property name="windowWidth">640</property>
-		<property name="windowHeight">640</property>
+		<property name="windowWidth">500</property>
+		<property name="windowHeight">500</property>
 	</propertyGroup>
 	<propertyGroup name="game">
-		<property name="boardWidth">64</property>
-		<property name="boardHeight">64</property>
+		<property name="boardWidth">100</property>
+		<property name="boardHeight">100</property>
 		<property name="aiControlled">true</property>
 		<property name="numberOfShips">5</property>
 		<property name="lengthOfShips">5</property>
