@@ -17,7 +17,6 @@ public class AutomatedInput extends Input {
         mOffset = 0;
         w = Config.getInt("game", "boardWidth");
         h = Config.getInt("game", "boardHeight");
-        
         this.fillShots();
     }
     
@@ -45,22 +44,22 @@ public class AutomatedInput extends Input {
         for (int x = 0; x < g.length; ++x) {
             for (int y = 0; y < g[0].length; ++y) {
                 if (g[x][y] instanceof BattleShip) {
-                    if (x < g.length - 1) {
+                    if (x < g.length) {
                         if (!g[x + 1][y].isSunk()) {
                             return new Dimension(x + 1, y);
                         }
                     }
-                    if (y < g[0].length - 1) {
+                    if (y < g[0].length) {
                         if (!g[x][y + 1].isSunk()) {
                             return new Dimension(x, y + 1);
                         }
                     }
-                    if (x > 1) {
+                    if (x > 0) {
                         if (!g[x - 1][y].isSunk()) {
                             return new Dimension(x - 1, y);
                         }
                     }
-                    if (y > 1) {
+                    if (y > 0) {
                         if (!g[x][y - 1].isSunk()) {
                             return new Dimension(x, y - 1);
                         }
