@@ -16,7 +16,10 @@ public final class PlayerBoard extends Board {
     public PlayerBoard(boolean isServer) {
         super();
         this.fillGrid();
-        mRender.show().initGrid(grid).setTitle(isServer ? "Server" : "Client");
+        mRender.initGrid(grid).setTitle(isServer ? "Server" : "Client");
+        if (!Config.getBoolean("fancyGraphics")) {
+            mRender.show();
+        }
     }
     
     /**

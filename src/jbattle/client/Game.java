@@ -47,9 +47,6 @@ public class Game {
             
             mPlayerBoard.update();
             
-            if (!mOppBoard.isAlive()) {
-                int asdf = 0;
-            }
             mNet.sendTurn(nextTurn);
             
             c++;

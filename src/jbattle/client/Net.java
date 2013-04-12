@@ -113,8 +113,13 @@ public class Net {
             try {
                 String rmsg, s[]; // remote message, pieces of rmsg
                 rmsg = mInput.readObject().toString();
-                Turn t = new Turn(rmsg);
-                System.out.println("Receiving message: " + t);
+                Turn t;
+                if (Config.getBoolean("useNetworkXML")) {
+                    t = new Turn(rmsg);
+                } else {
+                    t = new Turn(rmsg.split(","));
+                }
+                System.out.println("Receiving message: " + rmsg);
                 return t;
             } catch (IOException | ClassNotFoundException ex) {
             }

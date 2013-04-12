@@ -19,14 +19,19 @@ public class Renderer {
         mHeight = Config.getInt("windowHeight");
         mWide = Config.getInt("game", "boardWidth");
         mHigh = Config.getInt("game", "boardHeight");
+        mShown = false;
     }
     
     public Renderer show() {
+        if (mShown) {
+            return this;
+        }
         mWindow = new JFrame();
         mWindow.setSize(mWidth, mHeight);
         mWindow.setResizable(false);
         mWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mWindow.setVisible(true);
+        mShown = true;
         return this;
     }
     
@@ -55,6 +60,8 @@ public class Renderer {
     
     public Renderer initGrid(Cell[][] cells) {
         mCells = cells;
+        if (!mShown)
+            show();
         mWindow.getContentPane().setLayout(new java.awt.GridLayout(mWide, mHigh));
         for (int i = 0; i < mWide; ++i) {
             for (int j = 0; j < mHigh; ++j) {
@@ -82,5 +89,5 @@ public class Renderer {
     private JFrame mWindow;
     protected int mWidth, mHeight;
     protected int mWide, mHigh;
-    
+    protected boolean mShown;
 }

@@ -18,7 +18,6 @@ public class GLRenderer extends Renderer {
     
     public GLRenderer() {
         super();
-        mShown = false;
     }
     
     @Override
@@ -111,6 +110,4 @@ public class GLRenderer extends Renderer {
             Display.destroy();
         }
     }
-    
-    private boolean mShown;
 }

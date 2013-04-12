@@ -1,7 +1,4 @@
 package jbattle.client;
-
-import jbattle.Config;
-
 /**
  * @date Apr 8, 2013
  * @author Ben Cochrane
@@ -14,10 +11,7 @@ public final class OpponentBoard extends Board {
         this.fillGrid();
         mRender.initGrid(grid).setTitle("Opponent");
         mInput = null;
-        mRender.initGrid(grid).setTitle(isServer ? "Server" : "Client");
-        if (Config.getBoolean("fancyGraphics")) {
-            mRender.show();
-        }
+        mRender.show().initGrid(grid).setTitle(isServer ? "Server" : "Client");
         mDead = false;
     }
 

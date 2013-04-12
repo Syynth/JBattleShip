@@ -48,16 +48,27 @@ public class Turn {
                 mResults.add(new Loss());
                 break;
         }
+        mMoves.add(new Shoot(Shoot.Type.MOVE, -1, Integer.parseInt(turnRXY[1]), Integer.parseInt(turnRXY[2])));
     }
     
     private int getLastX() {
-        Turn t = Turn.masterTurnList.get(Turn.masterTurnList.size());
-        return ((Action)t.mMoves.get(0)).x;
+        if (Turn.masterTurnList.size() > 0) {
+            Turn t = Turn.masterTurnList.get(Turn.masterTurnList.size() - 1);
+            if (t.mMoves.size() > 0) {
+                return ((Action)t.mMoves.get(0)).x;
+            }
+        }
+        return 0;
     }
     
     private int getLastY() {
-        Turn t = Turn.masterTurnList.get(Turn.masterTurnList.size());
-        return ((Action)t.mMoves.get(0)).y;
+        if (Turn.masterTurnList.size() > 0) {
+            Turn t = Turn.masterTurnList.get(Turn.masterTurnList.size() - 1);
+            if (t.mMoves.size() > 0) {
+                return ((Action)t.mMoves.get(0)).y;
+            }
+        }
+        return 0;
     }
     
     public Move[] getMoves() {
