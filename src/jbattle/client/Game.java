@@ -53,6 +53,9 @@ public class Game {
         }
         
         Turn t = new Turn();
+        t.addMove(new Shoot(Shoot.Type.MOVE, 0, 0, 0));
+        t.addResult(new Loss());
+        mNet.sendTurn(t);
         
     }
     

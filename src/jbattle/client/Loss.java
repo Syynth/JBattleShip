@@ -17,6 +17,6 @@ public class Loss extends Action implements Result {
     
     @Override
     public String toString() {
-        return "<result type\"loss\" id=\"-1\" value=\"true\" />";
+        return "<result type=\"loss\" id=\"-1\" value=\"true\" />";
     }
 }
