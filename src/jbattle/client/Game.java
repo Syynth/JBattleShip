@@ -14,6 +14,7 @@ public class Game {
         mPlayerBoard = new PlayerBoard(mNet.isServer());
         mOppBoard = new OpponentBoard(mNet.isServer());
         mPlayerBoard.setOpponent(mOppBoard);
+        mOppBoard.setOpponent(mPlayerBoard);
         
         if (mNet.isClient()) {
             mTurn = new Turn();

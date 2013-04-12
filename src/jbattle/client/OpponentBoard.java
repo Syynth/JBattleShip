@@ -9,9 +9,9 @@ public final class OpponentBoard extends Board {
         super();
 
         this.fillGrid();
-        mRender.initGrid(grid).setTitle("Opponent");
+        mRender.initGrid(mGrid).setTitle("Opponent");
         mInput = null;
-        mRender.show().initGrid(grid).setTitle(isServer ? "Server" : "Client");
+        mRender.show().initGrid(mGrid).setTitle(isServer ? "Server" : "Client");
         mDead = false;
     }
 
@@ -20,10 +20,10 @@ public final class OpponentBoard extends Board {
         for (Result r : rs) {
             if (r instanceof Shoot) {
                 if (r.getResult()) {
-                    grid[((Action) r).x][((Action) r).y] = (new BattleShip()).sink();
-                    mRender.replaceGrid(grid);
+                    mGrid[((Action) r).x][((Action) r).y] = (new BattleShip()).sink();
+                    mRender.replaceGrid(mGrid);
                 } else {
-                    ((Water) grid[((Action) r).x][((Action) r).y]).sink();
+                    ((Water) mGrid[((Action) r).x][((Action) r).y]).sink();
                 }
             } else if (r instanceof Loss) {
                 mDead = true;
@@ -38,15 +38,11 @@ public final class OpponentBoard extends Board {
 
     @Override
     protected void fillGrid() {
-        for (int x = 0; x < grid.length; ++x) {
-            for (int y = 0; y < grid[0].length; ++y) {
-                grid[x][y] = new Water();
+        for (int x = 0; x < mGrid.length; ++x) {
+            for (int y = 0; y < mGrid[0].length; ++y) {
+                mGrid[x][y] = new Water();
             }
         }
-    }
-    
-    Cell[][] getGrid() {
-        return grid;
     }
     
     private boolean mDead;

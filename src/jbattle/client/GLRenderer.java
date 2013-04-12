@@ -44,7 +44,7 @@ public class GLRenderer extends Renderer {
     }
     
     @Override
-    public Renderer draw() {
+    public Renderer draw(Cell[][] pGrid) {
         if (mShown) {
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
             float w = (float)Math.ceil(mWidth / mWide);

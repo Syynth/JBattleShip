@@ -72,7 +72,7 @@ public class Renderer {
         return this;
     }
     
-    public Renderer draw() {
+    public Renderer draw(Cell[][] pGrid) {
         for (int i = 0; i < mWide; ++i) {
             for (int j = 0; j < mHigh; ++j) {
                 if (mCells[i][j] != null) {

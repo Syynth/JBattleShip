@@ -16,27 +16,19 @@ public final class PlayerBoard extends Board {
     public PlayerBoard(boolean isServer) {
         super();
         this.fillGrid();
-        mRender.initGrid(grid).setTitle(isServer ? "Server" : "Client");
+        mRender.initGrid(mGrid).setTitle(isServer ? "Server" : "Client");
         if (!Config.getBoolean("fancyGraphics")) {
             mRender.show();
         }
     }
-    
-    /**
-     *
-     * @param mOpp Sets the opponent reference to help determine which moves to make.
-     */
-    public void setOpponent(OpponentBoard mOpp) {
-        mOppBoard = mOpp;
-    }
-    
+        
     public boolean isAlive() {
         if (mRender.isCloseRequested()) {
             return false;
         }
-        for (int x = 0; x < grid.length; ++x) {
-            for (int y = 0; y < grid[0].length; ++y) {
-                if (grid[x][y] instanceof BattleShip && !grid[x][y].isSunk()) {
+        for (int x = 0; x < mGrid.length; ++x) {
+            for (int y = 0; y < mGrid[0].length; ++y) {
+                if (mGrid[x][y] instanceof BattleShip && !mGrid[x][y].isSunk()) {
                     return true;
                 }
             }
@@ -56,9 +48,9 @@ public final class PlayerBoard extends Board {
         int numShips = Config.getInt("game", "numberOfShips");
         int lenShips = Config.getInt("game", "lengthOfShips");
         
-        for (int x = 0; x < grid.length; ++x) {
-            for (int y = 0; y < grid[0].length; ++y) {
-                grid[x][y] = new Water();
+        for (int x = 0; x < mGrid.length; ++x) {
+            for (int y = 0; y < mGrid[0].length; ++y) {
+                mGrid[x][y] = new Water();
             }
         }
         
@@ -66,18 +58,16 @@ public final class PlayerBoard extends Board {
             int isVertical = (int)Math.round(Math.random());
             int rx, ry;
             if (isVertical == 1) { // ship IS vertical
-                rx = (int)(Math.random() * grid.length);
-                ry = Math.max((int)(Math.random() * grid[0].length - lenShips), 0);
+                rx = (int)(Math.random() * mGrid.length);
+                ry = Math.max((int)(Math.random() * mGrid[0].length - lenShips), 0);
             } else { // ship is not vertical
-                rx = Math.max((int)(Math.random() * grid.length - lenShips), 0);
-                ry = (int)(Math.random() * grid[0].length);
+                rx = Math.max((int)(Math.random() * mGrid.length - lenShips), 0);
+                ry = (int)(Math.random() * mGrid[0].length);
             }
             System.out.println("[" + rx + ", " + ry + "]");
             for (int j = 0; j < lenShips; ++j) {
-                grid[rx + j * (1 - isVertical)][ry + j * isVertical] = new BattleShip();
+                mGrid[rx + j * (1 - isVertical)][ry + j * isVertical] = new BattleShip();
             }
         }
     }
-    
-    private OpponentBoard mOppBoard;
 }
