@@ -55,9 +55,11 @@ public class GLRenderer extends Renderer {
             float h = (float)Math.ceil(mHeight / mHigh);
             for (int x = 0; x < mCells.length; ++x) {
                 for (int y = 0; y < mCells[0].length; ++y) {
-                    if (mCells[x][y].isSunk()) {
+                    if (!mCells[x][y].isSunk()) {
                         if (mCells[x][y] instanceof Water) {
-                            GL11.glColor3f(r() * .2f, r() * .3f, r() * .2f + .8f);
+                            GL11.glColor3f(r() * .2f,
+                                    r() * .3f,
+                                    (float)Math.abs(Math.sin(Turn.getTurnCount() / 30 + Math.sin(x) + y)) * .2f + .8f);
                         } else {
                             GL11.glColor3f(.8f, .1f, .3f);
                         }

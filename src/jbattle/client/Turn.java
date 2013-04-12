@@ -242,6 +242,10 @@ public class Turn {
         }
     }
     
+    public static int getTurnCount() {
+        return turnCount;
+    }
+    
     private final String xmlHeader = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
     private String mTurnSource;
     private ArrayList<Move> mMoves;
