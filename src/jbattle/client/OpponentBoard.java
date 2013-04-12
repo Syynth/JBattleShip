@@ -37,7 +37,7 @@ public final class OpponentBoard extends Board {
     }
     
     public boolean isAlive() {
-        return !mRender.isCloseRequested() && mDead;
+        return !mRender.isCloseRequested() && !mDead;
     }
 
     @Override
