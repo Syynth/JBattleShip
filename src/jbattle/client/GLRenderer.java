@@ -53,15 +53,15 @@ public class GLRenderer extends Renderer {
                 for (int y = 0; y < mCells[0].length; ++y) {
                     if (mCells[x][y].isSunk()) {
                         if (mCells[x][y] instanceof Water) {
-                            GL11.glColor3f(r() * .2f,
-                                    r() * .3f,
+                            GL11.glColor3f(.18f + r() * .02f,
+                                    .27f + r() * .3f,
                                     (float)Math.abs(Math.sin(System.currentTimeMillis() / 300 + Math.sin(x + y) + y)) * .2f + .8f);
                         } else {
                             GL11.glColor3f(.8f, .1f, .3f);
                         }
                     } else {
                         if (mCells[x][y] instanceof Water) {
-                            GL11.glColor3f(r() * .1f, r() * .15f, r() * .1f + .4f);
+                            GL11.glColor3f(.1f, r() * .15f, r() * .005f + .495f);
                         } else {
                             GL11.glColor3f(.4f, .05f, .15f);
                         }

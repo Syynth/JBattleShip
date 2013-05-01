@@ -21,7 +21,7 @@ import org.dom4j.io.SAXReader;
 public final class Config {
     
     private Config() {}
-       
+    
     public static boolean LoadConfig(String config) {
         try {
             configLocation = config;

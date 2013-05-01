@@ -200,16 +200,16 @@ public class Turn {
         String turn = "";
         if (mResults.size() > 0) {
             if (mResults.get(0) instanceof Loss) {
-                turn += "loss";
+                turn += "L";
             } else {
                 if (mResults.get(0).getResult()) {
-                    turn += "hitt";
+                    turn += "H";
                 } else {
-                    turn += "miss";
+                    turn += "M";
                 }
             }
         } else {
-            turn += "miss";
+            turn += "M";
         }
         if (mMoves.size() > 0) {
             turn += "," + ((Action)mMoves.get(0)).x + "," +
