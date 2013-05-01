@@ -4,6 +4,8 @@
 		<property name="serverAddress">localhost</property>
 		<property name="serverPort">13000</property>
 		<property name="clientPort">13001</property>
+		<property name="useLocationBroker">false</property>
+		<property name="defaultToClient">true</property>
 		<property name="useNetworkXML">false</property>
 		<property name="fancyGraphics">true</property>
 		<property name="windowWidth">500</property>
